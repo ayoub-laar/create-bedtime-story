@@ -42,7 +42,7 @@ export function Summary() {
   }
 
   const addOnsTotalPrice = addOns.reduce((acc, addOn) => acc + addOn.price, 0)
-  const finalPrice = selectedPlan.price + addOnsTotalPrice
+  const finalPrice = selectedPlan?.price + addOnsTotalPrice
 
   return (
     <Fragment>
@@ -56,7 +56,7 @@ export function Summary() {
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-1 items-start">
               <strong className="text-sm font-medium text-denim sm:text-base">
-                {`${selectedPlan.name} (${isYearly ? 'Yearly' : 'Monthly'})`}
+                {`${selectedPlan?.name} (${isYearly ? 'Yearly' : 'Monthly'})`}
               </strong>
               <button
                 className="text-sm leading-5 font-normal text-grey underline cursor-pointer hover:text-purple duration-200"
@@ -67,7 +67,7 @@ export function Summary() {
             </div>
 
             <span className="text-sm leading-5 font-bold text-denim sm:text-base">
-              {priceFormatter(selectedPlan.price, isYearly)}
+              {priceFormatter(selectedPlan?.price, isYearly)}
             </span>
           </div>
 
