@@ -1,15 +1,15 @@
 import { Fragment } from "react";
 
-import { useForm } from "../../../hooks/use-form";
-import { useFormStep } from "../../../hooks/use-form-step";
-import { useLocalStorage } from "../../../hooks/use-local-storage";
+import { useForm } from "../../../../hooks/use-form";
+import { useFormStep } from "../../../../hooks/use-form-step";
+import { useLocalStorage } from "../../../../hooks/use-local-storage";
 
 import { AddOnOption } from "./AddOnOption";
 import { Footer } from "../../Footer";
 import Form from "../../Form";
-import { AddonWithPrices, Addon } from "../../../types/add-ons";
+import { AddonWithPrices, Addon } from "../../../../types/add-ons";
 
-import ADD_ONS from '../../../../data/add-ons.json'
+import ADD_ONS from '../../../../../data/add-ons.json'
 
 export function AddOns() {
 

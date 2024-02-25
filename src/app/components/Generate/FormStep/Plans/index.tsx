@@ -4,13 +4,13 @@ import { PlanCard } from "./PlanCard";
 import { Footer } from "../../Footer";
 import Form from "../../Form";
 
-import { useFormStep } from "../../../hooks/use-form-step";
-import { useLocalStorage } from "../../../hooks/use-local-storage";
-import { useForm } from "../../../hooks/use-form";
-import { TypeOfPlan, PlanWithPrices } from "../../../types/plan";
+import { useFormStep } from "../../../../hooks/use-form-step";
+import { useLocalStorage } from "../../../../hooks/use-local-storage";
+import { useForm } from "../../../../hooks/use-form";
+import { TypeOfPlan, PlanWithPrices } from "../../../../types/plan";
 import { Switch } from "./Switch";
 
-import plans from '../../../../data/plans.json'
+import plans from '../../../../../data/plans.json'
 
 export function Plans() {
   const {

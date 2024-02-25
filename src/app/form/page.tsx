@@ -1,7 +1,7 @@
 'use client'
 
-import { FormStep } from "../components/FormStep";
-import { Sidebar } from "../components/Sidebar";
+import { FormStep } from "../components/Generate/FormStep";
+import { Sidebar } from "../components/Generate/Sidebar";
 import { FormProvider } from "../contexts/form";
 
 import { FormStepProvider } from "../contexts/form-step";

@@ -1,4 +1,4 @@
-import { useFormStep } from "../../hooks/use-form-step";
+import { useFormStep } from "../../../hooks/use-form-step";
 
 interface FooterProps {
   handleGoBack: () => void;

@@ -1,4 +1,4 @@
-import { priceFormatter } from "../../../util/price-formatter";
+import { priceFormatter } from "../../../../util/price-formatter";
 
 interface TotalPriceProps {
   isYearly: boolean;

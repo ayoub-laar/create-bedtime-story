@@ -2,10 +2,10 @@
 
 import { Fragment } from "react";
 
-import { useFormStep } from "../../../hooks/use-form-step";
-import { useLocalStorage } from "../../../hooks/use-local-storage";
-import { useForm } from "../../../hooks/use-form";
-import { ACTIONS } from "../../../contexts/form";
+import { useFormStep } from "../../../../hooks/use-form-step";
+import { useLocalStorage } from "../../../../hooks/use-local-storage";
+import { useForm } from "../../../../hooks/use-form";
+import { ACTIONS } from "../../../../contexts/form";
 
 import { TextInput } from "../../Form/TextInput";
 import Form from "../../Form";

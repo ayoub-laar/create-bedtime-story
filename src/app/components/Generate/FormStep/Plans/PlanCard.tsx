@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-import { PlanWithPrices } from "../../../types/plan";
+import { PlanWithPrices } from "../../../../types/plan";
 
-import { useForm } from "../../../hooks/use-form";
-import { priceFormatter } from "../../../util/price-formatter";
+import { useForm } from "../../../../hooks/use-form";
+import { priceFormatter } from "../../../../util/price-formatter";
 
 interface PlanCard {
   plan: PlanWithPrices;
