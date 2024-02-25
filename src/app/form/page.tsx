@@ -1,10 +1,10 @@
 'use client'
 
-import { FormStep } from "./components/FormStep";
-import { Sidebar } from "./components/Sidebar";
-import { FormProvider } from "./contexts/form";
+import { FormStep } from "../components/FormStep";
+import { Sidebar } from "../components/Sidebar";
+import { FormProvider } from "../contexts/form";
 
-import { FormStepProvider } from "./contexts/form-step";
+import { FormStepProvider } from "../contexts/form-step";
 
 export default function Home() {
   return (
