@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Ubuntu } from 'next/font/google'
+import { NextUIProvider } from "@nextui-org/react"
 
 const ubuntu = Ubuntu({
   weight: ["300", "400", "500", "700"],
@@ -18,8 +19,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    //<NextUIProvider>
     <html lang="en" className='antialiased'>
       <body className={ubuntu.className}>{children}</body>
     </html>
+    //</NextUIProvider>
   )
 }
