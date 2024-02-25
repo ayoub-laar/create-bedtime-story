@@ -11,21 +11,37 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        white: '#FFFFFF',
-        ['sky-blue']: '#BEE2FD',
-        denim: '#022959',
-        bg: '#EFF5FF',
-        ['light-blue']: '#ABBCFF',
-        grey: '#9699AA',
-        red: '#EE374A',
-        'border-grey': '#D6D9E6',
-        purple: '#483EFF',
-        'very-light-grey': '#F8F9FF'
-      }
-    }
+        light: "hsl(var(--light))",
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic':
+          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      },
+    },
   },
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [
+    nextui({
+      layout: {
+        disabledOpacity: "0.3", // opacity-[0.3]
+        radius: {
+          small: "4px", // rounded-small
+          medium: "6px", // rounded-medium
+          large: "8px", // rounded-large
+        },
+        borderWidth: {
+          small: "1px", // border-small
+          medium: "2px", // border-medium
+          large: "3px", // border-large
+        },
+      },
+      themes: {
+        light: {},
+        dark: {},
+      },
+    }),
+  ],
 }
 
 export default config

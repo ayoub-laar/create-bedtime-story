@@ -9,6 +9,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Image
 } from "@nextui-org/modal";
 import { useDisclosure } from "@nextui-org/use-disclosure";
 
@@ -27,51 +28,20 @@ export default function Hero() {
             transition={{ duration: 0.5 }}
             className="flex flex-col justify-center items-center space-y-5 max-w-4xl mx-auto text-center"
           >
-            <Chip
-              startContent={
-                <svg
-                  className="mx-1"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  strokeWidth="2"
-                  stroke="currentColor"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M4 5h2" />
-                  <path d="M5 4v2" />
-                  <path d="M11.5 4l-.5 2" />
-                  <path d="M18 5h2" />
-                  <path d="M19 4v2" />
-                  <path d="M15 9l-1 1" />
-                  <path d="M18 13l2 -.5" />
-                  <path d="M18 19h2" />
-                  <path d="M19 18v2" />
-                  <path d="M14 16.518l-6.518 -6.518l-4.39 9.58a1 1 0 0 0 1.329 1.329l9.579 -4.39z" />
-                </svg>
-              }
-              variant="dot"
-              color="default"
-            >
-              NextUI template its here!
-            </Chip>
             <h1 className="text-4xl font-extrabold mx-auto md:text-5xl bg-gradient-to-b from-foreground to-foreground/70 text-transparent bg-clip-text">
-              Use Nextjs and{" "}
+              Discover{" "}
               <span className="bg-gradient-to-t from-light to-foreground text-transparent bg-clip-text border-none">
-                NextUI
+                magical
               </span>{" "}
-              to build your website
+              tales
             </h1>
             <p className="max-w-2xl mx-auto text-foreground/80">
-              Create your website with NextUI and Nextjs, the best UI Framework.
+            Give your child a night full of dreams with their favorite characters
             </p>
             <div className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0">
               <motion.div whileHover={{ scale: 1.05 }}>
-                <Button onPress={onOpen} color="primary" variant="solid">
-                  Get Started
+                <Button size="lg" radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
+                  Get my story
                 </Button>
                 <Modal
                   isOpen={isOpen}

@@ -36,13 +36,13 @@ export default function NavBar() {
       </NavbarContent>
       <NavbarContent className="sm:hidden pr-3" justify="center">
         <NavbarBrand>
-          <span className="font-bold text-inherit text-lg">Acme</span>
+          <span className="font-bold text-inherit text-lg">KidsAdventure</span>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-5" justify="center">
         <NavbarBrand>
           <span className="font-bold text-2xl flex gap-3 justify-center items-center">
-            Acme
+            KidsAdventure
           </span>
         </NavbarBrand>
         <NavbarItem>

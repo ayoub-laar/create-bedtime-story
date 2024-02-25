@@ -3,8 +3,6 @@ import { Accordion, AccordionItem } from "@nextui-org/accordion";
 import { motion } from "framer-motion";
 
 export default function Faq() {
-  const defaultContent =
-    "Here is the content of the accordion. You can put any elements here.";
   return (
     <section className="relative max-w-screen-xl mx-auto px-4 py-28 gap-12 md:px-8 flex flex-col justify-center items-center">
       <motion.div
@@ -73,14 +71,11 @@ export default function Faq() {
             },
           }}
         >
-          <AccordionItem key="1" aria-label="¿Why NextUI?" title="¿Why NextUI">
-            {defaultContent}
+          <AccordionItem key="1" aria-label="How long does it take?" title="How long does it take?">
+            {"Less than 2 minutes"}
           </AccordionItem>
-          <AccordionItem key="2" aria-label="¿Why NextUI?" title="¿Why NextUI?">
-            {defaultContent}
-          </AccordionItem>
-          <AccordionItem key="3" aria-label="¿Why NextUI?" title="¿Why NextUI?">
-            {defaultContent}
+          <AccordionItem key="2" aria-label="Can I keep the generated story??" title="Can I keep the generated story??">
+            {"Of course ! Once generated, you can download the audio and the story pdf."}
           </AccordionItem>
         </Accordion>
       </motion.div>
