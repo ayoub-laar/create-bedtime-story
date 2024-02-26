@@ -1,6 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
-import { Tooltip } from "@nextui-org/tooltip";
 import React from "react"
 import {Image} from "@nextui-org/react"
 

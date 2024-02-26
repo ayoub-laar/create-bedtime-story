@@ -8,7 +8,6 @@ import Faq from "./components/Home/faq";
 import { NextUIProvider } from '@nextui-org/react'
 import { ThemeProvider as NextThemesProvider } from "next-themes"
 import React from "react"
-import { Card, CardFooter, Image, Button } from "@nextui-org/react"
 
 export default function Home() {
     return (

@@ -1,19 +1,22 @@
-"use client";
-/* eslint-disable @next/next/no-img-element */
-import { Chip } from "@nextui-org/chip";
-import { Button } from "@nextui-org/button";
-import { motion } from "framer-motion";
+"use client"
+
+import { Button } from "@nextui-org/button"
+import { useRouter } from 'next/navigation'
+import { motion } from "framer-motion"
+
 import {
   Modal,
   ModalContent,
   ModalHeader,
   ModalBody,
   ModalFooter,
-} from "@nextui-org/modal";
-import { useDisclosure } from "@nextui-org/use-disclosure";
+} from "@nextui-org/modal"
+import { useDisclosure } from "@nextui-org/use-disclosure"
 
 export default function Hero() {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpenChange } = useDisclosure()
+  const router = useRouter()
+
   return (
     <div className="relative justify-center items-center">
       <section>
@@ -39,7 +42,7 @@ export default function Hero() {
             </p>
             <div className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0">
               <motion.div whileHover={{ scale: 1.05 }}>
-                <Button href="generate" size="lg" radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
+                <Button onClick={() => {router.push('/generate')}} size="lg" radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
                   Get my story
                 </Button>
                 <Modal
@@ -55,7 +58,7 @@ export default function Hero() {
                         </ModalHeader>
                         <ModalBody>
                           <p>
-                            NextUI it&apos;s a high customizable component
+                            NextUI it&aposs a high customizable component
                             library to build faster, beautiful, and more
                             accessible NextJs applications.
                           </p>
@@ -96,5 +99,5 @@ export default function Hero() {
         </div>
       </motion.div>
     </div>
-  );
+  )
 }
