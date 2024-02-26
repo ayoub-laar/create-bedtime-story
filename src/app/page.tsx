@@ -2,9 +2,8 @@
 
 import Footer from "./components/Home/Footer";
 import Hero from "./components/Home/hero";
+import Illustration from "./components/Home/illustration";
 import NavBar from "./components/Home/navbar";
-import Pricing from "./components/Home/pricing";
-import Partners from "./components/Home/partners";
 import Faq from "./components/Home/faq";
 import { NextUIProvider } from '@nextui-org/react'
 import { ThemeProvider as NextThemesProvider } from "next-themes"
@@ -19,12 +18,7 @@ export default function Home() {
                     <NavBar />
                     <main>
                         <Hero />
-                        <Image
-                            width={"100%"}
-                            height={"100%"}
-                            alt="NextUI hero Image with delay"
-                            src="/images/aaaa.png"
-                        />
+                        <Illustration />
                         <Faq />
                     </main>
                     <Footer />

@@ -36,7 +36,10 @@ export default function NavBar() {
       </NavbarContent>
       <NavbarContent className="sm:hidden pr-3" justify="center">
         <NavbarBrand>
-          <span className="font-bold text-inherit text-lg">KidsAdventure</span>
+          <span className="font-bold text-inherit text-lg bg-gradient-to-t from-light to-foreground text-transparent bg-clip-text border-none">
+            Kids
+          </span>
+          <span className="font-bold text-inherit text-lg bg-gradient-to-l from-light to-foreground text-transparent bg-clip-text border-none">Adventure</span>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-5" justify="center">

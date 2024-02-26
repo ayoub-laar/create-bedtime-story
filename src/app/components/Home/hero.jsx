@@ -9,7 +9,6 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Image
 } from "@nextui-org/modal";
 import { useDisclosure } from "@nextui-org/use-disclosure";
 
@@ -40,7 +39,7 @@ export default function Hero() {
             </p>
             <div className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0">
               <motion.div whileHover={{ scale: 1.05 }}>
-                <Button size="lg" radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
+                <Button href="generate" size="lg" radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
                   Get my story
                 </Button>
                 <Modal
