@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 
 export default function NavBar() {
-  const menuItems = ["docs", "features", "pricing", "blog"];
+  const menuItems = []//["docs", "features", "pricing", "blog"];
 
   return (
     <Navbar isBlurred maxWidth="xl">
@@ -48,7 +48,7 @@ export default function NavBar() {
             KidsAdventure
           </span>
         </NavbarBrand>
-        <NavbarItem>
+        {/* <NavbarItem>
           <Button as={Link} variant="light">
             docs
           </Button>
@@ -114,7 +114,7 @@ export default function NavBar() {
           <Button as={Link} variant="light">
             blog
           </Button>
-        </NavbarItem>
+        </NavbarItem> */}
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden sm:flex">

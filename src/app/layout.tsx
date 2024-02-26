@@ -10,8 +10,8 @@ const ubuntu = Ubuntu({
 })
 
 export const metadata: Metadata = {
-  title: 'Multi Step Form',
-  description: 'Multi Step Form',
+  title: 'KidsAdventure: Magical tales',
+  description: 'Give your child a night full of dreams with their favorite characters'
 }
 
 export default function RootLayout({
