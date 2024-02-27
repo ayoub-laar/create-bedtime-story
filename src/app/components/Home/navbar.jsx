@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import {
   Navbar,
   NavbarBrand,
@@ -7,27 +7,12 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-} from "@nextui-org/navbar";
-import { Link } from "@nextui-org/link";
-import { Button } from "@nextui-org/button";
-import ThemeSwitcher from "./ThemeSwitcher";
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-} from "@nextui-org/dropdown";
-import {
-  AppWindow,
-  ChevronDown,
-  Contact2,
-  TimerReset,
-  User2,
-  Webhook,
-} from "lucide-react";
+} from "@nextui-org/navbar"
+import { Link } from "@nextui-org/link"
+import ThemeSwitcher from "./ThemeSwitcher"
 
 export default function NavBar() {
-  const menuItems = []//["docs", "features", "pricing", "blog"];
+  const menuItems = []//["docs", "features", "pricing", "blog"]
 
   return (
     <Navbar isBlurred maxWidth="xl">
@@ -36,10 +21,12 @@ export default function NavBar() {
       </NavbarContent>
       <NavbarContent className="sm:hidden pr-3" justify="center">
         <NavbarBrand>
-          <span className="font-bold text-inherit text-lg bg-gradient-to-t from-light to-foreground text-transparent bg-clip-text border-none">
-            Kids
-          </span>
-          <span className="font-bold text-inherit text-lg bg-gradient-to-l from-light to-foreground text-transparent bg-clip-text border-none">Adventure</span>
+          <a href="/">
+            <span className="font-bold text-inherit text-lg bg-gradient-to-t from-light to-foreground text-transparent bg-clip-text border-none">
+              Kids
+            </span>
+            <span className="font-bold text-inherit text-lg bg-gradient-to-l from-light to-foreground text-transparent bg-clip-text border-none">Adventure</span>
+          </a>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-5" justify="center">
@@ -142,5 +129,5 @@ export default function NavBar() {
         ))}
       </NavbarMenu>
     </Navbar>
-  );
+  )
 }

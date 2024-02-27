@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 import { useFormStep } from "../../../../hooks/use-form-step";
 import { useLocalStorage } from "../../../../hooks/use-local-storage";
@@ -10,6 +10,7 @@ import { ACTIONS } from "../../../../contexts/form";
 import { TextInput } from "../../Form/TextInput";
 import Form from "../../Form";
 import { Footer } from "../../Footer";
+import { Image } from "@nextui-org/react"
 
 export function YourInfo() {
   const {
@@ -24,6 +25,18 @@ export function YourInfo() {
   const { handleNextStep, handlePreviousStep } = useFormStep()
 
   const { saveValueToLocalStorage } = useLocalStorage()
+
+  const images = ['/images/mario_hd.png', '/images/pikachu_hd.png']
+
+  const [selectedImages, setSelectedImages] = useState<string[]>([]);
+
+  const toggleSelection = (url: string) => {
+    if (selectedImages.includes(url)) {
+      setSelectedImages(selectedImages.filter(image => image !== url));
+    } else {
+      setSelectedImages([...selectedImages, url]);
+    }
+  }
 
   function validateForm() {
     let formHasError = false
@@ -73,38 +86,17 @@ export function YourInfo() {
     <Fragment>
       <Form.Card>
         <Form.Header
-          title="Personal Info"
-          description="Please provide your name, email address, and phone number."
+          title="SELECT CHARACTERS"
+          description="Let your child choice the characters is he prefer :)"
         />
-
         <div className="mt-5 flex flex-col gap-4">
-          <TextInput
-            label="Name"
-            placeholder="e.g. Stephen King"
-            value={nameField.value}
-            onChange={(value: string) => dispatchNameField({ type: ACTIONS.SET_VALUE, value })}
-            errorMessage={nameField.errorMessage}
-            clearError={() => dispatchNameField({ type: ACTIONS.CLEAR_ERROR })}
-            hasError={nameField.hasError}
-          />
-          <TextInput
-            label="Email Address"
-            placeholder="e.g. stephenking@lorem.com"
-            value={emailField.value}
-            onChange={(value: string) => dispatchEmailField({ type: ACTIONS.SET_VALUE, value })}
-            errorMessage={emailField.errorMessage}
-            clearError={() => dispatchEmailField({ type: ACTIONS.CLEAR_ERROR })}
-            hasError={emailField.hasError}
-          />
-          <TextInput
-            label="Phone Number"
-            placeholder="e.g. +1 234 567 890"
-            value={phoneNumberField.value}
-            onChange={(value: string) => dispatchPhoneNumberField({ type: ACTIONS.SET_VALUE, value })}
-            errorMessage={phoneNumberField.errorMessage}
-            clearError={() => dispatchPhoneNumberField({ type: ACTIONS.CLEAR_ERROR })}
-            hasError={phoneNumberField.hasError}
-          />
+          <div className="grid grid-cols-2 gap-4 p-4">
+            {images.map((image, index) => (
+              <div key={index} className={`border-4 ${selectedImages.includes(image) ? 'border-sky-500' : 'border-white'} cursor-pointer`} onClick={() => toggleSelection(image)}>
+                <Image src={image} alt={`Image ${index + 1}`} width={585} height={390} style={{ opacity: selectedImages.includes(image) ? 1 : 0.3 }} />
+              </div>
+            ))}
+          </div>
         </div>
       </Form.Card>
       <Footer

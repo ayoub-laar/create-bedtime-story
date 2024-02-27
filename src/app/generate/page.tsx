@@ -1,23 +1,16 @@
 'use client'
 
-import { FormStep } from "../components/Generate/FormStep";
-import { Sidebar } from "../components/Generate/Sidebar";
-import { FormProvider } from "../contexts/form";
+import { FormStep } from "../components/Generate/FormStep"
+import { FormProvider } from "../contexts/form"
 
-import { FormStepProvider } from "../contexts/form-step";
+import { FormStepProvider } from "../contexts/form-step"
 
 export default function Home() {
   return (
     <FormStepProvider>
       <FormProvider>
-        <main className={`
-          flex flex-col h-screen m-0
-          sm:flex-row sm:m-4 sm:mr-0 sm:h-[calc(100vh-32px)]`
-        }>
-          <Sidebar />
-          <div className="flex flex-1 sm:max-w-[550px] sm:flex-0 sm:mx-auto">
-            <FormStep />
-          </div>
+        <main className="py-28">
+          <FormStep />
         </main >
       </FormProvider>
     </FormStepProvider>
