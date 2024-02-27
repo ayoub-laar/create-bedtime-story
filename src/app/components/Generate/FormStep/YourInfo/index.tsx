@@ -1,15 +1,13 @@
-'use client';
+'use client'
 
-import { Fragment, useState } from "react";
+import { Fragment, useState } from "react"
 
-import { useFormStep } from "../../../../hooks/use-form-step";
-import { useLocalStorage } from "../../../../hooks/use-local-storage";
-import { useForm } from "../../../../hooks/use-form";
-import { ACTIONS } from "../../../../contexts/form";
-
-import { TextInput } from "../../Form/TextInput";
-import Form from "../../Form";
-import { Footer } from "../../Footer";
+import { useFormStep } from "../../../../hooks/use-form-step"
+import { useLocalStorage } from "../../../../hooks/use-local-storage"
+import { useForm } from "../../../../hooks/use-form"
+import { ACTIONS } from "../../../../contexts/form"
+import Form from "../../Form"
+import { Footer } from "../../Footer"
 import { Image } from "@nextui-org/react"
 
 export function YourInfo() {
@@ -26,15 +24,15 @@ export function YourInfo() {
 
   const { saveValueToLocalStorage } = useLocalStorage()
 
-  const images = ['/images/mario_hd.png', '/images/pikachu_hd.png']
+  const images = ['/images/mario_hd.png', '/images/pikachu_hd.png', '/images/spiderman.png', '/images/superman.png', '/images/homer.png', '/images/naruto.png', '/images/shrek.png', '/images/mickey.png', '/images/lion.png']
 
-  const [selectedImages, setSelectedImages] = useState<string[]>([]);
+  const [selectedImages, setSelectedImages] = useState<string[]>([])
 
   const toggleSelection = (url: string) => {
     if (selectedImages.includes(url)) {
-      setSelectedImages(selectedImages.filter(image => image !== url));
+      setSelectedImages(selectedImages.filter(image => image !== url))
     } else {
-      setSelectedImages([...selectedImages, url]);
+      setSelectedImages([...selectedImages, url])
     }
   }
 
@@ -92,12 +90,25 @@ export function YourInfo() {
         <div className="mt-5 flex flex-col gap-4">
           <div className="grid grid-cols-2 gap-4 p-4">
             {images.map((image, index) => (
-              <div key={index} className={`border-4 ${selectedImages.includes(image) ? 'border-sky-500' : 'border-white'} cursor-pointer`} onClick={() => toggleSelection(image)}>
-                <Image src={image} alt={`Image ${index + 1}`} width={585} height={390} style={{ opacity: selectedImages.includes(image) ? 1 : 0.3 }} />
+              <div
+                key={index}
+                className={`border-4 ${selectedImages.includes(image) ? 'border-sky-500' : 'border-white'} cursor-pointer flex justify-center items-end overflow-hidden`}
+                style={{
+                  backgroundImage: `url(${image})`,
+                  backgroundSize: 'contain',
+                  backgroundPosition: 'center bottom',
+                  backgroundRepeat: 'no-repeat',
+                  height: '195px', // Hauteur ajustée pour correspondre à votre mise en page
+                  opacity: selectedImages.includes(image) ? 1 : 0.3, // Ajustement de l'opacité basé sur la sélection
+                }}
+                onClick={() => toggleSelection(image)}
+              >
+                {/* Le contenu ici est maintenant géré par le style de fond, donc pas besoin d'élément <Image> */}
               </div>
             ))}
           </div>
         </div>
+
       </Form.Card>
       <Footer
         handleGoForwardStep={handleGoForwardStep}
