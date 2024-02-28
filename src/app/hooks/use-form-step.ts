@@ -7,6 +7,6 @@ export const useFormStep = () => {
   if (!context) {
     throw new Error('useFormStep must be used within a FormStepProvider');
   }
-
+  
   return context;
 };
