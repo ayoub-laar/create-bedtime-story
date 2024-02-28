@@ -1,14 +1,14 @@
-import { Fragment } from "react";
+import { Fragment } from "react"
 
-import { PlanCard } from "./PlanCard";
-import { Footer } from "../../Footer";
-import Form from "../../Form";
+import { AgeCard } from "./AgeCard"
+import { Footer } from "../../Footer"
+import Form from "../../Form"
 
-import { useFormStep } from "../../../../hooks/use-form-step";
-import { useLocalStorage } from "../../../../hooks/use-local-storage";
-import { useForm } from "../../../../hooks/use-form";
-import { TypeOfPlan, PlanWithPrices } from "../../../../types/plan";
-import { Switch } from "./Switch";
+import { useFormStep } from "../../../../hooks/use-form-step"
+import { useLocalStorage } from "../../../../hooks/use-local-storage"
+import { useForm } from "../../../../hooks/use-form"
+import { TypeOfPlan, PlanWithPrices } from "../../../../types/plan"
+import { Switch } from "./Switch"
 
 import plans from '../../../../../data/plans.json'
 
@@ -20,14 +20,14 @@ export function Plans() {
     setIsYearly
   } = useForm()
 
-  const typeOfPlan: TypeOfPlan = isYearly ? 'yearly' : 'monthly';
+  const typeOfPlan: TypeOfPlan = isYearly ? 'yearly' : 'monthly'
 
   const { handleNextStep, handlePreviousStep } = useFormStep()
 
   const { saveValueToLocalStorage } = useLocalStorage()
 
   function handleGoForwardStep() {
-    if (!selectedPlan) return;
+    if (!selectedPlan) return
     saveValueToLocalStorage('plan', JSON.stringify({
       name: selectedPlan,
       price: plans.find(plan => plan.name === selectedPlan.name)?.price[typeOfPlan],
@@ -45,7 +45,7 @@ export function Plans() {
 
 
   function handlePlanTypeChange() {
-    setIsYearly(!isYearly);
+    setIsYearly(!isYearly)
   }
 
   return (
@@ -58,7 +58,7 @@ export function Plans() {
 
         <div className="mt-5 flex flex-col gap-3 sm:flex-row">
           {plans.map(plan => (
-            <PlanCard
+            <AgeCard
               key={plan.name}
               plan={plan}
               icon={plan.icon}

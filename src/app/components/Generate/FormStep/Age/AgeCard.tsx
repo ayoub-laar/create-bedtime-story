@@ -1,22 +1,22 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import { PlanWithPrices } from "../../../../types/plan";
+import { PlanWithPrices } from "../../../../types/plan"
 
-import { useForm } from "../../../../hooks/use-form";
-import { priceFormatter } from "../../../../util/price-formatter";
+import { useForm } from "../../../../hooks/use-form"
+import { priceFormatter } from "../../../../util/price-formatter"
 
-interface PlanCard {
-  plan: PlanWithPrices;
-  icon: string;
-  isSelected: boolean;
-  handleSelectPlan: (plan: PlanWithPrices) => void;
-  freeTrialDescription: string;
+interface AgeCard {
+  plan: PlanWithPrices
+  icon: string
+  isSelected: boolean
+  handleSelectPlan: (plan: PlanWithPrices) => void
+  freeTrialDescription: string
 }
 
-export function PlanCard({ plan, icon, isSelected, handleSelectPlan, freeTrialDescription }: PlanCard) {
+export function AgeCard({ plan, icon, isSelected, handleSelectPlan, freeTrialDescription }: AgeCard) {
   const { isYearly } = useForm()
 
-  const planType = isYearly ? 'yearly' : 'monthly';
+  const planType = isYearly ? 'yearly' : 'monthly'
 
   return (
     <button

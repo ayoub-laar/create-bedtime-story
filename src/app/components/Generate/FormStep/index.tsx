@@ -1,14 +1,14 @@
-import { useFormStep } from "../../../hooks/use-form-step";
+import { useFormStep } from "../../../hooks/use-form-step"
 
-import { YourInfo } from "./YourInfo";
-import { Plans } from "./Plans";
+import { YourCharacters } from "./YourCharacters"
+import { Plans } from "./Age";
 import { AddOns } from "./AddOns";
 import { Summary } from "./Summary";
 
 const steps = [
   {
     step: 1,
-    component: YourInfo
+    component: YourCharacters
   },
   {
     step: 2,

@@ -1,49 +1,48 @@
-import { createContext, useEffect, useReducer, useState } from 'react';
-import { useLocalStorage } from '../hooks/use-local-storage';
+import { createContext, useEffect, useReducer, useState } from 'react'
+import { useLocalStorage } from '../hooks/use-local-storage'
+
+type ImagesField = {
+  value: string[]
+  hasError: boolean
+  errorMessage: string
+}
 
 type Field = {
-  value: string;
-  hasError: boolean;
-  errorMessage: string;
+  value: string
+  hasError: boolean
+  errorMessage: string
 }
 
 const initialState = {
-  value: '',
+  value: [],
   hasError: false,
   errorMessage: ''
 }
 
 type FormContextData = {
-  nameField: Field;
-  dispatchNameField: React.Dispatch<any>;
-  emailField: Field;
-  dispatchEmailField: React.Dispatch<any>;
-  phoneNumberField: Field;
-  dispatchPhoneNumberField: React.Dispatch<any>;
-  isYearly: boolean;
-  setIsYearly: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedPlan: Plan;
-  setSelectedPlan: React.Dispatch<React.SetStateAction<Plan>>;
-  addOns: { title: string, description: string, price: number }[];
-  setAddOns: React.Dispatch<React.SetStateAction<{ title: string; description: string; price: number; }[]>>;
-  clearForm: () => void;
+  charactersField: ImagesField
+  // dispatchCharactersField: React.Dispatch<React.SetStateAction<Array<string>>>
+  dispatchCharactersField: React.Dispatch<any>
+  isYearly: boolean
+  setIsYearly: React.Dispatch<React.SetStateAction<boolean>>
+  selectedPlan: Plan
+  setSelectedPlan: React.Dispatch<React.SetStateAction<Plan>>
+  addOns: { title: string, description: string, price: number }[]
+  setAddOns: React.Dispatch<React.SetStateAction<{ title: string; description: string; price: number }[]>>
+  clearForm: () => void
 }
 
 export const FormContext = createContext({
-  nameField: initialState,
-  dispatchNameField: () => {},
-  emailField: initialState,
-  dispatchEmailField: () => {},
-  phoneNumberField: initialState,
-  dispatchPhoneNumberField: () => {},
+  charactersField: initialState,
+  dispatchCharactersField: () => { },
   isYearly: false,
-  setIsYearly: () => {},
+  setIsYearly: () => { },
   selectedPlan: null as any,
-  setSelectedPlan: () => {},
+  setSelectedPlan: () => { },
   addOns: [],
-  setAddOns: () => {},
-  clearForm: () => {}
-} as FormContextData);
+  setAddOns: () => { },
+  clearForm: () => { }
+} as FormContextData)
 
 export const ACTIONS = {
   SET_VALUE: 'SET_VALUE',
@@ -81,26 +80,24 @@ function handleFormState(
 }
 
 export type Plan = {
-  name: string;
+  name: string
   price: number
 }
 
 interface FormProviderProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export const FormProvider = ({ children }: FormProviderProps) => {
-  // Your Info
-  const [nameField, dispatchNameField] = useReducer(handleFormState, initialState)
-  const [emailField, dispatchEmailField] = useReducer(handleFormState, initialState)
-  const [phoneNumberField, dispatchPhoneNumberField] = useReducer(handleFormState, initialState)
+  // Your characters
+  const [charactersField, dispatchCharactersField] = useReducer(handleFormState, initialState)
 
   // Plan
-  const [isYearly, setIsYearly] = useState<boolean>(false);
-  const [selectedPlan, setSelectedPlan] = useState<Plan>(null as any);
+  const [isYearly, setIsYearly] = useState<boolean>(false)
+  const [selectedPlan, setSelectedPlan] = useState<Plan>(null as any)
 
   // Add Ons
-  const [addOns, setAddOns] = useState<{ title: string, description: string, price: number }[]>([]);
+  const [addOns, setAddOns] = useState<{ title: string, description: string, price: number }[]>([])
 
   const { getValueFromLocalStorage, removeValueFromLocalStorage } = useLocalStorage()
 
@@ -109,20 +106,16 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     removeValueFromLocalStorage('plan')
     removeValueFromLocalStorage('add-ons')
 
-    dispatchNameField({ type: ACTIONS.SET_VALUE, value: '' })
-    dispatchEmailField({ type: ACTIONS.SET_VALUE, value: '' })
-    dispatchPhoneNumberField({ type: ACTIONS.SET_VALUE, value: '' })
+    dispatchCharactersField({ type: ACTIONS.SET_VALUE, value: [] })
     setIsYearly(false)
     setSelectedPlan(null as any)
     setAddOns([])
   }
 
   useEffect(() => {
-    const yourInfoFromLocalStorage = getValueFromLocalStorage('your-info')
-    if (yourInfoFromLocalStorage) {
-      dispatchNameField({ type: ACTIONS.SET_VALUE, value: yourInfoFromLocalStorage.name })
-      dispatchEmailField({ type: ACTIONS.SET_VALUE, value: yourInfoFromLocalStorage.email })
-      dispatchPhoneNumberField({ type: ACTIONS.SET_VALUE, value: yourInfoFromLocalStorage.phoneNumber })
+    const YourCharactersFromLocalStorage = getValueFromLocalStorage('your-info')
+    if (YourCharactersFromLocalStorage) {
+      dispatchCharactersField({ type: ACTIONS.SET_VALUE, value: YourCharactersFromLocalStorage.characters })
     }
 
     const planFromLocalStorage = getValueFromLocalStorage('plan')
@@ -138,12 +131,8 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   }, [])
 
   const value = {
-    nameField,
-    dispatchNameField,
-    emailField,
-    dispatchEmailField,
-    phoneNumberField,
-    dispatchPhoneNumberField,
+    charactersField,
+    dispatchCharactersField,
     isYearly,
     setIsYearly,
     selectedPlan,
@@ -157,5 +146,5 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     <FormContext.Provider value={{ ...value }}>
       {children}
     </FormContext.Provider>
-  );
-};
+  )
+}
