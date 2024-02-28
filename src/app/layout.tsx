@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react"
 import './globals.css'
 import { Metadata } from 'next'
 import { Ubuntu } from 'next/font/google'
