@@ -5,7 +5,7 @@ import type { Metadata } from 'next'
 import { Ubuntu } from 'next/font/google'
 import { NextUIProvider } from '@nextui-org/react'
 import { ThemeProvider as NextThemesProvider } from "next-themes"
-import NavBar from "./components/Home/navbar"
+import NavBar from "./components/Home/NavBar"
 import Footer from "./components/Home/Footer"
 
 const ubuntu = Ubuntu({

@@ -1,9 +1,9 @@
-"use client";
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
-import { Button } from "@nextui-org/button";
-import { Divider } from "@nextui-org/divider";
-import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+"use client"
+import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card"
+import { Button } from "@nextui-org/button"
+import { Divider } from "@nextui-org/divider"
+import { motion } from "framer-motion"
+import { Check } from "lucide-react"
 
 export default function Pricing() {
   const plans = [
@@ -37,7 +37,7 @@ export default function Pricing() {
         "Make the best schedule",
       ],
     },
-  ];
+  ]
 
   return (
     <section className="max-w-screen-xl mx-auto px-4 py-28 gap-12 md:px-8 flex flex-col justify-center items-center">
@@ -102,5 +102,5 @@ export default function Pricing() {
         </div>
       </motion.div>
     </section>
-  );
+  )
 }

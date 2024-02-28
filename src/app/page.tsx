@@ -1,10 +1,8 @@
 'use client'
 
-import Hero from "./components/Home/hero";
-import Illustration from "./components/Home/illustration";
-import Faq from "./components/Home/faq";
-import { NextUIProvider } from '@nextui-org/react'
-import { ThemeProvider as NextThemesProvider } from "next-themes"
+import Hero from "./components/Home/Hero"
+import Illustration from "./components/Home/Illustration"
+import Faq from "./components/Home/Faq"
 import React from "react"
 
 export default function Home() {
@@ -14,5 +12,5 @@ export default function Home() {
             <Illustration />
             <Faq />
         </main>
-    );
+    )
 }
