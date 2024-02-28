@@ -1,6 +1,6 @@
 'use client'
 
-import { Fragment, useState } from "react"
+import { Fragment } from "react"
 
 import { useFormStep } from "../../../../hooks/use-form-step"
 import { useLocalStorage } from "../../../../hooks/use-local-storage"
@@ -21,8 +21,6 @@ export function YourCharacters() {
   const { saveValueToLocalStorage } = useLocalStorage()
 
   const images = ['/images/characters/mario_hd.png', '/images/characters/pikachu_hd.png', '/images/characters/spiderman.png', '/images/characters/superman.png', '/images/characters/homer.png', '/images/characters/naruto.png', '/images/characters/shrek.png', '/images/characters/mickey.png', '/images/characters/lion.png']
-
-
 
   function validateForm() {
     let formHasError = false

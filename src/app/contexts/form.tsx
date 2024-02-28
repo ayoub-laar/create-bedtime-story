@@ -7,11 +7,11 @@ type ImagesField = {
   errorMessage: string
 }
 
-type Field = {
-  value: string
-  hasError: boolean
-  errorMessage: string
-}
+// type Field = {
+//   value: string
+//   hasError: boolean
+//   errorMessage: string
+// }
 
 const initialState = {
   value: [],
@@ -51,7 +51,7 @@ export const ACTIONS = {
 }
 
 function handleFormState(
-  state: Field,
+  state: ImagesField,
   action: any
 ) {
   switch (action.type) {

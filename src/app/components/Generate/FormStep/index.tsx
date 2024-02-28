@@ -1,9 +1,9 @@
 import { useFormStep } from "../../../hooks/use-form-step"
 
 import { YourCharacters } from "./YourCharacters"
-import { Plans } from "./Age";
-import { AddOns } from "./AddOns";
-import { Summary } from "./Summary";
+import { Plans } from "./Age"
+import { AddOns } from "./AddOns"
+import { Summary } from "./Summary"
 
 const steps = [
   {
@@ -25,9 +25,9 @@ const steps = [
 ]
 
 export function FormStep() {
-  const { currentStep } = useFormStep();
+  const { currentStep } = useFormStep()
 
-  const step = steps.find(({ step }) => step === currentStep);
+  const step = steps.find(({ step }) => step === currentStep)
 
   return (
     <div className="flex flex-col flex-1 justify-between">
