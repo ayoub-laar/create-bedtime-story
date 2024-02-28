@@ -102,7 +102,7 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   const { getValueFromLocalStorage, removeValueFromLocalStorage } = useLocalStorage()
 
   function clearForm() {
-    removeValueFromLocalStorage('your-info')
+    removeValueFromLocalStorage('your-characters')
     removeValueFromLocalStorage('plan')
     removeValueFromLocalStorage('add-ons')
 
@@ -113,9 +113,9 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   }
 
   useEffect(() => {
-    const YourCharactersFromLocalStorage = getValueFromLocalStorage('your-info')
+    const YourCharactersFromLocalStorage = getValueFromLocalStorage('your-characters')
     if (YourCharactersFromLocalStorage) {
-      dispatchCharactersField({ type: ACTIONS.SET_VALUE, value: YourCharactersFromLocalStorage.characters })
+      dispatchCharactersField({ type: ACTIONS.SET_VALUE, value: YourCharactersFromLocalStorage.characters.value })
     }
 
     const planFromLocalStorage = getValueFromLocalStorage('plan')

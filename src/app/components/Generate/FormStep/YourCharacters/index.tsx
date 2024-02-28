@@ -36,7 +36,7 @@ export function YourCharacters() {
   function handleGoForwardStep() {
     const isValid = validateForm()
     if (isValid) {
-      saveValueToLocalStorage('your-info', JSON.stringify({
+      saveValueToLocalStorage('your-characters', JSON.stringify({
         characters: charactersField
       }))
       handleNextStep()
