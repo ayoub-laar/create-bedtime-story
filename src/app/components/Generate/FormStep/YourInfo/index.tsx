@@ -24,7 +24,7 @@ export function YourInfo() {
 
   const { saveValueToLocalStorage } = useLocalStorage()
 
-  const images = ['/images/mario_hd.png', '/images/pikachu_hd.png', '/images/spiderman.png', '/images/superman.png', '/images/homer.png', '/images/naruto.png', '/images/shrek.png', '/images/mickey.png', '/images/lion.png']
+  const images = ['/images/characters/mario_hd.png', '/images/characters/pikachu_hd.png', '/images/characters/spiderman.png', '/images/characters/superman.png', '/images/characters/homer.png', '/images/characters/naruto.png', '/images/characters/shrek.png', '/images/characters/mickey.png', '/images/characters/lion.png']
 
   const [selectedImages, setSelectedImages] = useState<string[]>([])
 

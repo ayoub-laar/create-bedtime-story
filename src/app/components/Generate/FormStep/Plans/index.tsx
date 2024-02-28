@@ -52,7 +52,7 @@ export function Plans() {
     <Fragment>
       <Form.Card>
         <Form.Header
-          title="Select your plan"
+          title="Select age range"
           description="You have the option of monthly or yearly billing."
         />
 
