@@ -21,12 +21,9 @@ const initialState = {
 
 type FormContextData = {
   charactersField: ImagesField
-  // dispatchCharactersField: React.Dispatch<React.SetStateAction<Array<string>>>
-  dispatchCharactersField: React.Dispatch<any>
-  isYearly: boolean
-  setIsYearly: React.Dispatch<React.SetStateAction<boolean>>
-  selectedPlan: Plan
-  setSelectedPlan: React.Dispatch<React.SetStateAction<Plan>>
+  dispatchCharactersField: React.Dispatch<React.SetStateAction<Array<string>>>
+  selectedAge: string
+  setSelectedAge: React.Dispatch<React.SetStateAction<string>>
   addOns: { title: string, description: string, price: number }[]
   setAddOns: React.Dispatch<React.SetStateAction<{ title: string; description: string; price: number }[]>>
   clearForm: () => void
@@ -35,10 +32,8 @@ type FormContextData = {
 export const FormContext = createContext({
   charactersField: initialState,
   dispatchCharactersField: () => { },
-  isYearly: false,
-  setIsYearly: () => { },
-  selectedPlan: null as any,
-  setSelectedPlan: () => { },
+  selectedAge: null as any,
+  setSelectedAge: () => { },
   addOns: [],
   setAddOns: () => { },
   clearForm: () => { }
@@ -92,9 +87,8 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   // Your characters
   const [charactersField, dispatchCharactersField] = useReducer(handleFormState, initialState)
 
-  // Plan
-  const [isYearly, setIsYearly] = useState<boolean>(false)
-  const [selectedPlan, setSelectedPlan] = useState<Plan>(null as any)
+  // Age
+  const [selectedAge, setSelectedAge] = useState<string>('')
 
   // Add Ons
   const [addOns, setAddOns] = useState<{ title: string, description: string, price: number }[]>([])
@@ -103,12 +97,11 @@ export const FormProvider = ({ children }: FormProviderProps) => {
 
   function clearForm() {
     removeValueFromLocalStorage('your-characters')
-    removeValueFromLocalStorage('plan')
+    removeValueFromLocalStorage('age')
     removeValueFromLocalStorage('add-ons')
 
     dispatchCharactersField({ type: ACTIONS.SET_VALUE, value: [] })
-    setIsYearly(false)
-    setSelectedPlan(null as any)
+    setSelectedAge('')
     setAddOns([])
   }
 
@@ -118,10 +111,10 @@ export const FormProvider = ({ children }: FormProviderProps) => {
       dispatchCharactersField({ type: ACTIONS.SET_VALUE, value: YourCharactersFromLocalStorage.characters.value })
     }
 
-    const planFromLocalStorage = getValueFromLocalStorage('plan')
-    if (planFromLocalStorage) {
-      setSelectedPlan(planFromLocalStorage.name)
-      setIsYearly(planFromLocalStorage.isYearly)
+    const ageFromLocalStorage = getValueFromLocalStorage('age')
+    console.log('ageFromLocalStorage: ', ageFromLocalStorage)
+    if (ageFromLocalStorage) {
+      setSelectedAge(ageFromLocalStorage)
     }
 
     const addOnsFromLocalStorage = getValueFromLocalStorage('add-ons')
@@ -133,10 +126,8 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   const value = {
     charactersField,
     dispatchCharactersField,
-    isYearly,
-    setIsYearly,
-    selectedPlan,
-    setSelectedPlan,
+    selectedAge,
+    setSelectedAge,
     addOns,
     setAddOns,
     clearForm

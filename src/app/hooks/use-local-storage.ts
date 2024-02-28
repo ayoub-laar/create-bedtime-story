@@ -2,7 +2,18 @@ export function useLocalStorage() {
   function getValue(key: string) {
     if (!localStorage) return null;
     const value = localStorage.getItem(key);
-    return value ? JSON.parse(value) : null;
+
+
+    if (value) {
+      try {
+        JSON.parse(value)
+        return JSON.parse(value)
+      } catch (e) {
+        return value
+      } 
+    }
+    
+    return null
   }
 
   function setValue(key: string, value: string) {

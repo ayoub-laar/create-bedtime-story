@@ -1,16 +1,16 @@
-import { Button } from "@nextui-org/react";
-import { useFormStep } from "../../../hooks/use-form-step";
+import { Button } from "@nextui-org/react"
+import { useFormStep } from "../../../hooks/use-form-step"
 
 interface FooterProps {
-  handleGoBack: () => void;
-  handleGoForwardStep: () => void;
+  handleGoBack: () => void
+  handleGoForwardStep: () => void
 }
 
 export function Footer({ handleGoBack, handleGoForwardStep }: FooterProps) {
-  const { currentStep, steps } = useFormStep();
+  const { currentStep, steps } = useFormStep()
 
-  const numberOfSteps = steps.length;
-  const isLastStep = currentStep === numberOfSteps;
+  const numberOfSteps = steps.length
+  const isLastStep = currentStep === numberOfSteps
 
   return (
     <footer className="p-4 bg-slate-50 flex justify-between items-center fixed bottom-0 left-0 right-0">
@@ -36,5 +36,5 @@ export function Footer({ handleGoBack, handleGoForwardStep }: FooterProps) {
         </Button>
       )}
     </footer>
-  );
+  )
 }

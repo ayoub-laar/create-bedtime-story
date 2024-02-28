@@ -1,51 +1,31 @@
 import { Fragment } from "react"
-
-import { AgeCard } from "./AgeCard"
 import { Footer } from "../../Footer"
 import Form from "../../Form"
-
 import { useFormStep } from "../../../../hooks/use-form-step"
 import { useLocalStorage } from "../../../../hooks/use-local-storage"
 import { useForm } from "../../../../hooks/use-form"
-import { TypeOfPlan, PlanWithPrices } from "../../../../types/plan"
-import { Switch } from "./Switch"
+import { RadioGroup, Radio } from "@nextui-org/react"
 
-import plans from '../../../../../data/plans.json'
-
-export function Plans() {
+export function Age() {
   const {
-    selectedPlan,
-    setSelectedPlan,
-    isYearly,
-    setIsYearly
+    selectedAge,
+    setSelectedAge
   } = useForm()
-
-  const typeOfPlan: TypeOfPlan = isYearly ? 'yearly' : 'monthly'
 
   const { handleNextStep, handlePreviousStep } = useFormStep()
 
   const { saveValueToLocalStorage } = useLocalStorage()
 
   function handleGoForwardStep() {
-    if (!selectedPlan) return
-    saveValueToLocalStorage('plan', JSON.stringify({
-      name: selectedPlan,
-      price: plans.find(plan => plan.name === selectedPlan.name)?.price[typeOfPlan],
-      isYearly
-    }))
+    if (!selectedAge) {
+      return
+    }
+    saveValueToLocalStorage('age', selectedAge)
     handleNextStep()
   }
 
-  function handleSelectPlan(plan: PlanWithPrices) {
-    setSelectedPlan({
-      name: plan.name,
-      price: plan.price[typeOfPlan]
-    })
-  }
-
-
-  function handlePlanTypeChange() {
-    setIsYearly(!isYearly)
+  function handleSelectedAge(e: React.ChangeEvent<HTMLInputElement>) {
+    setSelectedAge(e.target.value)
   }
 
   return (
@@ -53,27 +33,20 @@ export function Plans() {
       <Form.Card>
         <Form.Header
           title="Select age range"
-          description="You have the option of monthly or yearly billing."
+          description="To make the story unique" //todo
         />
-
-        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-          {plans.map(plan => (
-            <AgeCard
-              key={plan.name}
-              plan={plan}
-              icon={plan.icon}
-              isSelected={plan.name === selectedPlan?.name}
-              handleSelectPlan={handleSelectPlan}
-              freeTrialDescription={plan.freeTrialDescription}
-            />
-          ))}
-        </div>
-
-        <div className="flex justify-center items-center gap-6 py-4 bg-very-light-grey mt-6 rounded-lg sm:mt-8">
-          <Switch
-            handlePlanTypeChange={handlePlanTypeChange}
-            isYearly={isYearly}
-          />
+        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+          <RadioGroup
+            color="primary"
+            defaultValue={selectedAge ?? '4/5'}
+            onChange={handleSelectedAge}
+          >
+            <Radio value="2/3">2/3 years old</Radio>
+            <Radio value="4/5">4/5 years old</Radio>
+            <Radio value="6/7">6/7 years old</Radio>
+            <Radio value="8/9">8/9 years old</Radio>
+            <Radio value="10">10+ years old</Radio>
+          </RadioGroup>
         </div>
       </Form.Card>
       <Footer
