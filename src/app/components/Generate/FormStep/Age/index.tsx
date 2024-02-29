@@ -41,10 +41,10 @@ export function Age() {
             defaultValue={selectedAge ?? '4/5'}
             onChange={handleSelectedAge}
           >
-            <Radio value="2/3">2/3 years old</Radio>
-            <Radio value="4/5">4/5 years old</Radio>
-            <Radio value="6/7">6/7 years old</Radio>
-            <Radio value="8/9">8/9 years old</Radio>
+            <Radio value="2/3">2-3 years old</Radio>
+            <Radio value="4/5">4-5 years old</Radio>
+            <Radio value="6/7">6-7 years old</Radio>
+            <Radio value="8/9">8-9 years old</Radio>
             <Radio value="10">10+ years old</Radio>
           </RadioGroup>
         </div>
