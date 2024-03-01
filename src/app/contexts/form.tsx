@@ -112,7 +112,6 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     }
 
     const ageFromLocalStorage = getValueFromLocalStorage('age')
-    console.log('ageFromLocalStorage: ', ageFromLocalStorage)
     if (ageFromLocalStorage) {
       setSelectedAge(ageFromLocalStorage)
     }
