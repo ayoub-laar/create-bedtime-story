@@ -21,7 +21,7 @@ const initialState = {
 
 type FormContextData = {
   charactersField: ImagesField
-  dispatchCharactersField: React.Dispatch<React.SetStateAction<Array<string>>>
+  dispatchCharactersField: React.Dispatch<React.SetStateAction<{ type: string; errorMessage?: string, value?: string[] }>>
   selectedAge: string
   setSelectedAge: React.Dispatch<React.SetStateAction<string>>
   addOns: { title: string, description: string, price: number }[]
