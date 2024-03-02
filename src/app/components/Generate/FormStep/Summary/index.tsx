@@ -15,7 +15,7 @@ export function Summary() {
 
   const { handlePreviousStep, moveToStep } = useFormStep()
 
-  const { addOns, selectedPlan, isYearly, clearForm } = useForm()
+  const { addOns, clearForm } = useForm()
 
   function handleGoForwardStep() {
     setSubmitted(true)
