@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 
 export default function StoryExample() {
     const [isVisible, setIsVisible] = useState(false);
-    const contentRef = useRef(null);
+    const contentRef: any = useRef(null);
     const ref = useRef(null);
     const router = useRouter()
 
