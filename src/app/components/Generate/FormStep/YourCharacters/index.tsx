@@ -21,7 +21,7 @@ export function YourCharacters() {
   const images = ['/images/characters/mario_hd.png', '/images/characters/pikachu_hd.png', '/images/characters/spiderman.png', '/images/characters/superman.png', '/images/characters/homer.png', '/images/characters/naruto.png', '/images/characters/shrek.png', '/images/characters/mickey.png', '/images/characters/lion.png']
 
   // Création d'une référence pour le message d'erreur
-  const errorMessageRef = useRef(null);
+  const errorMessageRef = useRef<HTMLSpanElement>(null)
 
   function validateForm() {
     let formHasError = false
