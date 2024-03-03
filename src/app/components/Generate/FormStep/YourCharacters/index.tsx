@@ -20,9 +20,6 @@ export function YourCharacters() {
 
   const images = ['/images/characters/mario_hd.png', '/images/characters/pikachu_hd.png', '/images/characters/spiderman.png', '/images/characters/superman.png', '/images/characters/homer.png', '/images/characters/naruto.png', '/images/characters/shrek.png', '/images/characters/mickey.png', '/images/characters/lion.png']
 
-  // Création d'une référence pour le message d'erreur
-  const errorMessageRef = useRef<HTMLSpanElement>(null)
-
   function validateForm() {
     let formHasError = false
 
@@ -43,9 +40,10 @@ export function YourCharacters() {
       handleNextStep()
     } else {
       // Si le formulaire n'est pas valide, effectue le scrolling vers le message d'erreur
-      if (errorMessageRef.current) {
-        errorMessageRef.current.scrollIntoView({ behavior: 'smooth' });
-      }
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
     }
   }
 
@@ -58,7 +56,7 @@ export function YourCharacters() {
         />
         <div className="mt-5 flex flex-col gap-4">
           {charactersField.hasError && (
-            <span ref={errorMessageRef} className="text-red-600 text-xl sm:text-sm">⚠️ {charactersField.errorMessage}</span>
+            <span className="text-red-600 text-xl sm:text-sm">⚠️ {charactersField.errorMessage}</span>
           )}
           <ImagesInput
             images={images}
