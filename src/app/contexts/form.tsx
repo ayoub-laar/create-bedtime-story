@@ -7,12 +7,6 @@ type ImagesField = {
   errorMessage: string
 }
 
-// type Field = {
-//   value: string
-//   hasError: boolean
-//   errorMessage: string
-// }
-
 const initialState = {
   value: [],
   hasError: false,

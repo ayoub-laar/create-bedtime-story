@@ -1,5 +1,5 @@
-import { createContext, useEffect, useState } from 'react';
-import { useLocalStorage } from '../hooks/use-local-storage';
+import { createContext, useEffect, useState } from 'react'
+import { useLocalStorage } from '../hooks/use-local-storage'
 
 type FormStepContextData = {
   currentStep: number;
@@ -25,9 +25,9 @@ export const FormStepProvider = ({ children }: FormStepProviderProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [steps, _] = useState([
     { title: 'Your characters', number: 1 },
-    { title: 'Select plan', number: 2 },
-    { title: 'ADD-ONS', number: 3 },
-    { title: 'Summary', number: 4 },
+    { title: 'Age', number: 2 },
+    { title: 'Checkout', number: 3 },
+    { title: 'Download', number: 4 },
   ])
 
   const { getValueFromLocalStorage, saveValueToLocalStorage } = useLocalStorage()
@@ -38,6 +38,8 @@ export const FormStepProvider = ({ children }: FormStepProviderProps) => {
   }, [getValueFromLocalStorage])
 
   const handleNextStep = () => {
+    console.log('handleNextStep')
+
     // Scroll to top of the page
     window.scrollTo({
       top: 0,

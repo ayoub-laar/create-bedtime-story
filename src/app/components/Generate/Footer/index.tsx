@@ -3,7 +3,7 @@ import { useFormStep } from "../../../hooks/use-form-step"
 
 interface FooterProps {
   handleGoBack: () => void
-  handleGoForwardStep: () => void
+  handleGoForwardStep?: () => void
 }
 
 export function Footer({ handleGoBack, handleGoForwardStep }: FooterProps) {
@@ -23,7 +23,7 @@ export function Footer({ handleGoBack, handleGoForwardStep }: FooterProps) {
           ⏪️ BACK
         </Button>
       )}
-      {isLastStep ? (
+      {currentStep == 3 ? (
         <button
           onClick={handleGoForwardStep}
           className="bg-purple py-3 px-4 rounded text-sm text-white font-medium sm:text-base"

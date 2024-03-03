@@ -22,13 +22,15 @@ export default function Return() {
             });
     }, []);
 
-    if (status === 'open') {
+    if (!status || status === 'open') {
         return (
             redirect('/')
         )
     }
 
     if (status === 'complete') {
+
+
         return (
             <section id="success">
                 <p>
