@@ -18,7 +18,7 @@ export function YourCharacters() {
 
   const { saveValueToLocalStorage } = useLocalStorage()
 
-  const images = ['/images/characters/mario_hd.png', '/images/characters/pikachu_hd.png', '/images/characters/spiderman.png', '/images/characters/superman.png', '/images/characters/homer.png', '/images/characters/naruto.png', '/images/characters/shrek.png', '/images/characters/mickey.png', '/images/characters/lion.png']
+  const images = ['/images/characters/Mario\\\ Bros.png', '/images/characters/Pikachu.png', '/images/characters/Spider-man.png', '/images/characters/Super-man.png', '/images/characters/Homer\\\ Simpson.png', '/images/characters/Naruto.png', '/images/characters/Shrek.png', '/images/characters/Mickey\\\ Mouse.png', '/images/characters/The\\\ Lion\\\ King.png']
 
   function validateForm() {
     let formHasError = false

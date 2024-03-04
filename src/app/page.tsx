@@ -3,7 +3,7 @@
 import Hero from "./components/Home/Hero"
 import Illustration from "./components/Home/Illustration"
 import Faq from "./components/Home/Faq"
-import StoryExample from "./components/Home/StoryExample"
+import StoryCard from "./components/Home/StoryCard"
 import React from "react"
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
         <main>
             <Hero />
             <Illustration />
-            <StoryExample />
+            <StoryCard />
             <Faq />
         </main>
     )

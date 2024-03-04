@@ -38,8 +38,6 @@ export const FormStepProvider = ({ children }: FormStepProviderProps) => {
   }, [getValueFromLocalStorage])
 
   const handleNextStep = () => {
-    console.log('handleNextStep')
-
     // Scroll to top of the page
     window.scrollTo({
       top: 0,

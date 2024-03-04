@@ -3,19 +3,21 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from "@nextui-org/button"
 import { useRouter, redirect } from 'next/navigation'
+import Router from "next/router"
 import { useLocalStorage } from '../hooks/use-local-storage'
 import { createParser, ParsedEvent, ReconnectInterval, } from 'eventsource-parser'
 import router from 'next/router'
+import { useForm } from '../hooks/use-form'
 
 export default function Return() {
+    const { removeValueFromLocalStorage } = useLocalStorage()
     const [status, setStatus] = useState(null)
     const [loading, setLoading] = useState(false)
-    const [customerEmail, setCustomerEmail] = useState('')
+    // const [customerEmail, setCustomerEmail] = useState('')
     const [story, setStory] = useState('')
+    const router = useRouter()
 
     const getStory = async () => {
-        console.log('GET STORY')
-        console.log('status complete')
         setLoading(true)
         const { getValueFromLocalStorage } = useLocalStorage()
         const age: string = getValueFromLocalStorage('age')
@@ -25,7 +27,6 @@ export default function Return() {
             }).toString()
         const prompt = `Generate a wonderful story for a ${age} years-old child featuring ${characters}.`
 
-        console.log('PROMPT: ', prompt)
         const response = await fetch('/api/openai', {
             method: 'POST',
             headers: {
@@ -72,7 +73,6 @@ export default function Return() {
     }
 
     useEffect(() => {
-        console.log('USE EFFECT')
         const queryString = window.location.search
         const urlParams = new URLSearchParams(queryString)
         const sessionId = urlParams.get('session_id')
@@ -83,7 +83,7 @@ export default function Return() {
             .then((res) => res.json())
             .then((data) => {
                 setStatus(data.status)
-                setCustomerEmail(data.customer_email)
+                // setCustomerEmail(data.customer_email)
                 if (data.status === 'complete') {
                     getStory()
                 }
@@ -91,28 +91,70 @@ export default function Return() {
     }, [])
 
     if (status === 'open') {
-        console.log('STATUS OPEN')
         return (
             redirect('/')
         )
     }
 
     if (status === 'complete') {
-        console.log('STATUS COMPLETE')
         return (
-            <section id="success">
-                <p>
-                    We appreciate your business! Your story: {story}.
-
-                    If you have any questions, please email <a href="mailto:orders@example.com">orders@example.com</a>.
-                </p>
-                <Button onClick={() => {
-                    // clear form here
-                    router.push('/generate')
-                }} size="lg" radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
-                    Get a new story
-                </Button>
-            </section>
+            <>
+                <style jsx>{`
+                .card {
+                    position: relative;
+                    max-width: 400px;
+                    width: 100%;
+                    background-color: rgba(0, 0, 0, 0.8); /* Fond plus sombre avec une légère transparence */
+                    color: white; /* Texte en blanc pour le mode sombre */
+                    border-radius: 8px;
+                    padding: 20px;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Ombre plus marquée pour le mode sombre */
+                    overflow: hidden; /* Assure que l'effet flouté ne dépasse pas les bords arrondis */
+                }
+                .card-background {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: -1; /* Positionne l'arrière-plan derrière le contenu */
+                    background-image: url('/images/example.jpg'); /* Votre image de fond */
+                    background-size: cover;
+                    background-position: center;
+                    filter: blur(8px); /* Ajustez le niveau de flou ici */
+                    opacity: 0.5; /* Réduit l'opacité pour un effet plus subtil en mode sombre */
+                }
+            `}</style>
+                <section className="relative max-w-screen-xl mx-auto px-4 py-28 gap-12 md:px-8 flex flex-col justify-center items-center">
+                    <div className="card">
+                        <div className="card-background"></div> {/* Arrière-plan flouté */}
+                        <div className="flex gap-3">
+                            <img
+                                alt="My story"
+                                className="rounded-sm"
+                                src="/images/example.jpg"
+                                style={{ width: 40, height: 40 }}
+                            />
+                            <div className="flex flex-col">
+                                <p className="text-md">My story</p>
+                            </div>
+                        </div>
+                        <p className="mt-4">
+                            {story}
+                        </p>
+                        <div className="flex justify-end mt-4">
+                            <button onClick={() => {
+                                removeValueFromLocalStorage('age')
+                                removeValueFromLocalStorage('currentStep')
+                                removeValueFromLocalStorage('your-characters')
+                                router.push('/generate')
+                            }} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                Get a new story
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </>
         )
     }
 }

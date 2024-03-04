@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from 'next/navigation'
 
-export default function StoryExample() {
+export default function StoryCard() {
     const [isVisible, setIsVisible] = useState(false);
     const contentRef: any = useRef(null);
     const ref = useRef(null);

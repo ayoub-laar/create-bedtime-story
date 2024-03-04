@@ -72,7 +72,7 @@ export default function Faq() {
           }}
         >
           <AccordionItem key="1" aria-label="How long does it take?" title="How long does it take?">
-            {"Less than 2 minutes"}
+            {"Less than 1 minute"}
           </AccordionItem>
           <AccordionItem key="2" aria-label="Can I keep the generated story??" title="Can I keep the generated story??">
             {"Of course ! Once generated, you can download the audio and the story pdf."}
