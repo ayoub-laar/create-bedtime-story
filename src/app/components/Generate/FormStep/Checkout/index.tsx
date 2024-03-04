@@ -16,7 +16,7 @@ export function Checkout() {
 
   useEffect(() => {
     fetch("/api/checkout_sessions", {
-      method: "POST",
+      method: "POST"
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
