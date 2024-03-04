@@ -18,8 +18,6 @@ type FormContextData = {
   dispatchCharactersField: React.Dispatch<React.SetStateAction<{ type: string; errorMessage?: string, value?: string[] }>>
   selectedAge: string
   setSelectedAge: React.Dispatch<React.SetStateAction<string>>
-  addOns: { title: string, description: string, price: number }[]
-  setAddOns: React.Dispatch<React.SetStateAction<{ title: string; description: string; price: number }[]>>
   clearForm: () => void
 }
 
@@ -28,8 +26,6 @@ export const FormContext = createContext({
   dispatchCharactersField: () => { },
   selectedAge: null as any,
   setSelectedAge: () => { },
-  addOns: [],
-  setAddOns: () => { },
   clearForm: () => { }
 } as FormContextData)
 
@@ -84,19 +80,14 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   // Age
   const [selectedAge, setSelectedAge] = useState<string>('')
 
-  // Add Ons
-  const [addOns, setAddOns] = useState<{ title: string, description: string, price: number }[]>([])
-
   const { getValueFromLocalStorage, removeValueFromLocalStorage } = useLocalStorage()
 
   function clearForm() {
     removeValueFromLocalStorage('your-characters')
     removeValueFromLocalStorage('age')
-    removeValueFromLocalStorage('add-ons')
 
     dispatchCharactersField({ type: ACTIONS.SET_VALUE, value: [] })
     setSelectedAge('')
-    setAddOns([])
   }
 
   useEffect(() => {
@@ -109,11 +100,6 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     if (ageFromLocalStorage) {
       setSelectedAge(ageFromLocalStorage)
     }
-
-    const addOnsFromLocalStorage = getValueFromLocalStorage('add-ons')
-    if (addOnsFromLocalStorage) {
-      setAddOns(addOnsFromLocalStorage)
-    }
   }, [])
 
   const value = {
@@ -121,8 +107,6 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     dispatchCharactersField,
     selectedAge,
     setSelectedAge,
-    addOns,
-    setAddOns,
     clearForm
   }
 

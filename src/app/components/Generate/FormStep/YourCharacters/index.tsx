@@ -1,4 +1,4 @@
-import { Fragment, useRef, useEffect } from "react"
+import { Fragment } from "react"
 
 import { useFormStep } from "../../../../hooks/use-form-step"
 import { useLocalStorage } from "../../../../hooks/use-local-storage"
