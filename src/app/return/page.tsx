@@ -146,16 +146,22 @@ export default function Return() {
                         </p>
                         {!loading ? <div className="flex justify-end mt-4">
                             <button onClick={() => {
-                                removeValueFromLocalStorage('age')
-                                removeValueFromLocalStorage('currentStep')
-                                removeValueFromLocalStorage('your-characters')
+                                // removeValueFromLocalStorage('age')
+                                // removeValueFromLocalStorage('currentStep')
+                                // removeValueFromLocalStorage('your-characters')
                                 // router.push('/generate') //
                             }} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                                 📄 Download PDF
                             </button>
                         </div> : ''}
                     </div>
-                    <Button onClick={() => { router.push('/generate') }} size="lg" radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
+                    <Button onClick={() => {
+                        removeValueFromLocalStorage('age')
+                        removeValueFromLocalStorage('currentStep')
+                        removeValueFromLocalStorage('your-characters')
+                        router.push('/generate') //
+                        router.push('/generate')
+                    }} size="lg" radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
                         Get a new story
                     </Button>
                 </section>
