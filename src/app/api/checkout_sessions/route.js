@@ -6,7 +6,7 @@ export async function POST(req) {
       ui_mode: 'embedded',
       line_items: [
         {
-          price: 'price_1OqhAiLxsdjOwhql1agaYXS1',
+          price: process.env.ARTICLE_PRICE,
           quantity: 1,
         },
       ],
