@@ -3,14 +3,11 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from "@nextui-org/button"
 import { useRouter, redirect } from 'next/navigation'
-import Router from "next/router"
 import { useLocalStorage } from '../hooks/use-local-storage'
 import { createParser, ParsedEvent, ReconnectInterval, } from 'eventsource-parser'
-import router from 'next/router'
-import { useForm } from '../hooks/use-form'
 
 export default function Return() {
-    const { removeValueFromLocalStorage } = useLocalStorage()
+    const { getValueFromLocalStorage, removeValueFromLocalStorage } = useLocalStorage()
     const [status, setStatus] = useState(null)
     const [loading, setLoading] = useState(false)
     // const [customerEmail, setCustomerEmail] = useState('')
@@ -19,8 +16,13 @@ export default function Return() {
 
     const getStory = async () => {
         setLoading(true)
-        const { getValueFromLocalStorage } = useLocalStorage()
         const age: string = getValueFromLocalStorage('age')
+
+        // if no characters (maybe try te reload an free story with old stripe session)
+        if (!getValueFromLocalStorage('your-characters')) {
+            router.push('/generate')
+        }
+
         const characters: string = getValueFromLocalStorage('your-characters').characters
             .value.map((characterImgfilePath: string) => {
                 return characterImgfilePath.split('/images/characters/')[1].split('.png')[0]
@@ -142,17 +144,20 @@ export default function Return() {
                         <p className="mt-4">
                             {story}
                         </p>
-                        <div className="flex justify-end mt-4">
+                        {!loading ? <div className="flex justify-end mt-4">
                             <button onClick={() => {
                                 removeValueFromLocalStorage('age')
                                 removeValueFromLocalStorage('currentStep')
                                 removeValueFromLocalStorage('your-characters')
-                                router.push('/generate')
+                                // router.push('/generate') //
                             }} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                Get a new story
+                                📄 Download PDF
                             </button>
-                        </div>
+                        </div> : ''}
                     </div>
+                    <Button onClick={() => { router.push('/generate') }} size="lg" radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
+                        Get a new story
+                    </Button>
                 </section>
             </>
         )
