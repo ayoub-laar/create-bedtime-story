@@ -35,14 +35,14 @@ export default function Hero() {
               <span className="bg-gradient-to-t from-light to-foreground text-transparent bg-clip-text border-none">
                 magical
               </span>{" "}
-              tales
+              bedtime stories
             </h1>
             <p className="max-w-2xl mx-auto text-foreground/80">
-            Give your child a night full of dreams with their favorite characters
+              Give your child a night full of dreams with their favorite characters
             </p>
             <div className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0">
               <motion.div whileHover={{ scale: 1.05 }}>
-                <Button onClick={() => {router.push('/generate')}} size="lg" radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
+                <Button onClick={() => { router.push('/generate') }} size="lg" radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
                   Get my story
                 </Button>
                 <Modal

@@ -12,7 +12,7 @@ const ubuntu = Ubuntu({
 })
 
 export const metadata: Metadata = {
-  title: 'KidsAdventure: Magical tales',
+  title: 'KidsAdventure: Magical bedtime stories',
   description: 'Give your child a night full of dreams with their favorite characters'
 }
 
