@@ -32,7 +32,7 @@ export default function RootLayout({
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="🦄 KidsAdventure: Magical bedtime stories" />
         <meta
-          name="twitt er:description"
+          name="twitter:description"
           content="Give your child a night full of dreams with their favorite characters."
         />
         <meta
