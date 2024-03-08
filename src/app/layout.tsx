@@ -1,6 +1,6 @@
 import { Analytics } from "@vercel/analytics/react"
 import './globals.css'
-import { Head } from 'next/head'
+import Head from "next/head"
 import { Ubuntu } from 'next/font/google'
 import NavBar from "./components/Home/NavBar"
 import Footer from "./components/Home/Footer"
@@ -32,7 +32,7 @@ export default function RootLayout({
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="🦄 KidsAdventure: Magical bedtime stories" />
         <meta
-          name="twitter:description"
+          name="twitt er:description"
           content="Give your child a night full of dreams with their favorite characters."
         />
         <meta
