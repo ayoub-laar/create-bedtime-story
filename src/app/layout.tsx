@@ -13,7 +13,13 @@ const ubuntu = Ubuntu({
 
 export const metadata: Metadata = {
   title: 'KidsAdventure: Magical bedtime stories',
-  description: 'Give your child a night full of dreams with their favorite characters'
+  description: 'Give your child a night full of dreams with their favorite characters',
+  openGraph: { images: [{ url: '/images/home_illustration.png' }] },
+  twitter: {
+    images: {
+      url: '/example.jpg'
+    }
+  }
 }
 
 export default function RootLayout({
