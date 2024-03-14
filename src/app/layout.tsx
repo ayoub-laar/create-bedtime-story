@@ -19,6 +19,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <title>🦄 KidsAdventure: Magical bedtime stories</title>
+        <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
           content="Give your child a night full of dreams with their favorite characters"
