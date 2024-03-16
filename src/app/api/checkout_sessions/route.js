@@ -10,7 +10,7 @@ export async function POST(req) {
           quantity: 1,
         },
       ],
-      discounts: [{coupon: 'MARCH'}], // Appliquer le coupon "MARCH" automatiquement
+      discounts: [{coupon: 'LAUNCH'}], // Appliquer le coupon "LAUNCH" automatiquement
       mode: 'payment',
       return_url: `${req.headers.get('origin')}/return?session_id={CHECKOUT_SESSION_ID}`,
       automatic_tax: {enabled: true},
