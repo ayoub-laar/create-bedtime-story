@@ -51,8 +51,8 @@ export function YourCharacters() {
     <Fragment>
       <Form.Card>
         <Form.Header
-          title="SELECT CHARACTERS"
-          description="Let your child choose their favorite characters :)"
+          title="Who are your child's favorite characters?"
+          description=""
         />
         <div className="mt-5 flex flex-col gap-4">
           {charactersField.hasError && (

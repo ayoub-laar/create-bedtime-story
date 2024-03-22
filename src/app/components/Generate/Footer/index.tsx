@@ -31,8 +31,8 @@ export function Footer({ handleGoBack, handleGoForwardStep }: FooterProps) {
           Confirm
         </button>
       ) : (
-        <Button size='lg' color="success" onClick={handleGoForwardStep}>
-          NEXT 🧙🏼
+        <Button size='lg' className="bg-gradient bg-[length:300%_300%] hover:saturate-[1.2] shadow duration-100 border-0 border-transparent bg-transparent animate-shimmer disabled:bg-none disabled:bg-gray-500/30  text-white btn bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 animate-shimmer" color="success" onClick={handleGoForwardStep}>
+          GET MY STORY 🪄
         </Button>
       )}
     </footer>

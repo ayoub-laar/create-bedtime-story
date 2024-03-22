@@ -20,14 +20,14 @@ export default function Return() {
 
         // if no characters (maybe try te reload an free story with old stripe session)
         if (!getValueFromLocalStorage('your-characters')) {
-            router.push('/generate')
+            router.push('/')
         }
 
         const characters: string = getValueFromLocalStorage('your-characters').characters
             .value.map((characterImgfilePath: string) => {
                 return characterImgfilePath.split('/images/characters/')[1].split('.png')[0]
             }).toString()
-        const prompt = `Generate a wonderful story for a ${age} years-old child featuring ${characters}.`
+        const prompt = `Generate a wonderful bedtime story for a ${age} years-old child featuring ${characters}.`
 
         const response = await fetch('/api/openai', {
             method: 'POST',
@@ -149,7 +149,7 @@ export default function Return() {
                                 // removeValueFromLocalStorage('age')
                                 // removeValueFromLocalStorage('currentStep')
                                 // removeValueFromLocalStorage('your-characters')
-                                // router.push('/generate') //
+                                // router.push('/') //
                             }} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                                 📄 Download PDF
                             </button>
@@ -159,8 +159,7 @@ export default function Return() {
                         removeValueFromLocalStorage('age')
                         removeValueFromLocalStorage('currentStep')
                         removeValueFromLocalStorage('your-characters')
-                        router.push('/generate') //
-                        router.push('/generate')
+                        router.push('/')
                     }} size="lg" radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
                         Get a new story
                     </Button>

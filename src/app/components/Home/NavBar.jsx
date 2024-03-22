@@ -4,7 +4,6 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
 } from "@nextui-org/navbar"
@@ -16,17 +15,12 @@ export default function NavBar() {
 
   return (
     <Navbar isBlurred maxWidth="xl">
-      <NavbarContent className="sm:hidden" justify="start">
-        <NavbarMenuToggle />
-      </NavbarContent>
       <NavbarContent className="sm:hidden pr-3" justify="center">
         <NavbarBrand>
-          <a href="/">
-            <span className="font-bold text-inherit text-lg bg-gradient-to-t from-light to-foreground text-transparent bg-clip-text border-none">
-              Kids
-            </span>
-            <span className="font-bold text-inherit text-lg bg-gradient-to-l from-light to-foreground text-transparent bg-clip-text border-none">Adventure</span>
-          </a>
+        <a class="font-bold text-xl text-bold absolute top-4 left-4 flex gap-2 items-center" id="storyai_logo" data-turbo-permanent="true" href="/">
+      <img class="w-8 h-8 rounded bg-gradient-to-r from-purple-500 via-pink-500 to-white background-animate" src="/images/book.svg"/>
+      <span class="hidden sm:inline">Story AI</span>
+</a>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-5" justify="center">
