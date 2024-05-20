@@ -16,10 +16,10 @@ export default function Home() {
             </span>
           </h1>
         </div>
-        <main className="py-28">
+        <div className="mt-16">
           <FormStep />
-        </main >
+        </div>
       </FormProvider>
-    </FormStepProvider>
+    </FormStepProvider >
   )
 }

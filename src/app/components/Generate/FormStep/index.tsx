@@ -25,7 +25,7 @@ export function FormStep() {
   const step = steps.find(({ step }) => step === currentStep)
 
   return (
-    <div className="flex flex-col flex-1 justify-between md:items-center mx-auto max-w-screen-md">
+    <div className="py-28 border border-gray-300 rounded-2xl p-4 sm:p-8 my-4 sm:my-8 flex flex-col flex-1 justify-between md:items-center mx-auto max-w-screen-md">
       {step && step.component()}
     </div>
   )
