@@ -30,7 +30,7 @@ export default function Home() {
             </span>
           </h1>
         </div>
-        <div className="mt-16">
+        <div className="p-[7vw] pt-[5vh]">
           <FormStep />
         </div>        
       </FormProvider>

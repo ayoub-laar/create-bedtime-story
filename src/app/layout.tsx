@@ -50,9 +50,7 @@ export default function RootLayout({
         <Providers>
           <div className="flex flex-col min-h-screen">
             <NavBar />
-            <div className="p-[7vw] pt-[5vh]">
               {children}
-            </div>
             <Analytics />
             <Footer />
           </div>
