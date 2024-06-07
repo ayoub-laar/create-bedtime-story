@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>🦄 KidsAdventure: Magical bedtime stories</title>
+        <title>Bedtime Story: Custom bedtime stories</title>
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
@@ -30,9 +30,9 @@ export default function RootLayout({
           property="og:description"
           content="Give your child a night full of dreams with their favorite characters"
         />
-        <meta property="og:title" content="🦄 KidsAdventure: Magical bedtime stories" />
+        <meta property="og:title" content="🦄 Bedtime Story: Magical bedtime stories" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="🦄 KidsAdventure: Magical bedtime stories" />
+        <meta name="twitter:title" content="🦄 Bedtime Story: Magical bedtime stories" />
         <meta
           name="twitter:description"
           content="Give your child a night full of dreams with their favorite characters."

@@ -6,7 +6,7 @@ export default function Footer() {
         <Divider />
         <div className="flex justify-between items-center py-10">
           <p className="font-light">
-            KidsAdventure | 
+            Bedtime Story |
             Made with ❤️
           </p>  
         </div>
