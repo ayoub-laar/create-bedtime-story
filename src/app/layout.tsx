@@ -1,6 +1,5 @@
 import { Analytics } from "@vercel/analytics/react"
 import './globals.css'
-import Head from "next/head"
 import { Ubuntu } from 'next/font/google'
 import NavBar from "./components/Home/NavBar"
 import Footer from "./components/Home/Footer"
@@ -8,7 +7,8 @@ import Providers from './providers'
 
 const ubuntu = Ubuntu({
   weight: ["300", "400", "500", "700"],
-  subsets: ['latin']
+  subsets: ['latin'],
+  display: 'swap'
 })
 
 export default function RootLayout({
