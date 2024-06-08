@@ -132,6 +132,7 @@ export default function Return() {
                         <div className="card-background"></div> {/* Arrière-plan flouté */}
                         <div className="flex gap-3">
                             <img
+                                loading="lazy"
                                 alt="My story"
                                 className="rounded-sm"
                                 src="/images/example.jpg"

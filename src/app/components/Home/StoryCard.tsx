@@ -76,6 +76,7 @@ export default function StoryCard() {
                     <div className="card-background"></div> {/* Arrière-plan flouté */}
                     <div className="flex gap-3">
                         <img
+                            loading="lazy"
                             alt="Example"
                             className="rounded-sm"
                             src="/images/example.jpg"
