@@ -25,7 +25,7 @@ export default function Return() {
 
         const characters: string = getValueFromLocalStorage('your-characters').characters
             .value.map((characterImgfilePath: string) => {
-                return characterImgfilePath.split('/images/characters/')[1].split('.png')[0]
+                return characterImgfilePath.split('/images/characters/')[1].split('.webp')[0]
             }).toString()
         const prompt = `Generate a wonderful bedtime story for a ${age} years-old child featuring ${characters}.`
 
