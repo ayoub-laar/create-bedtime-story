@@ -26,7 +26,7 @@ export default function Home() {
           <h1 className="text-4xl font-extrabold mx-auto md:text-5xl bg-gradient-to-b from-foreground to-foreground/70 text-transparent bg-clip-text">
             Create your bedtime story {" "}
             <span className="bg-gradient-to-t from-purple-500 via-pink-500 to-white text-transparent bg-clip-text border-none">
-              in seconds {" "}
+              in seconds
             </span>
           </h1>
         </div>

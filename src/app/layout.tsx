@@ -19,23 +19,27 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>Bedtime Story: Custom bedtime stories</title>
         <link rel="icon" href="/favicon.ico" />
+        {/* SEO Google */}
+        <title>Create a bedtime story in seconds using artificial intelligence</title>
         <meta
           name="description"
-          content="Give your child a night full of dreams with their favorite characters"
+          content="Create a  magical bedtime story for your children with our AI-powered tool. Include characters like Spider-Man, Cinderella, Pikachu, and more."
         />
-        <meta property="og:site_name" content="darija.cc" />
+        <meta name="keywords" content="bedtime story, bedtime story for kids, short bedtime story, cinderella bedtime story, bedtime story read online, bedtime story quick, story ai, bedtime story ai" />
+
+        {/* SEO (réseaux sociaux) */}
+        <meta property="og:site_name" content="CreateBedTimestory.com" />
+        <meta property="og:title" content="🦄 Bedtime Story: Magical bedtime stories" />
         <meta
           property="og:description"
-          content="Give your child a night full of dreams with their favorite characters"
+          content="Create a magical bedtime story with his favorite characters like Spider-Man, Cinderella, Pikachu, and more in seconds using our AI-powered tool."
         />
-        <meta property="og:title" content="🦄 Bedtime Story: Magical bedtime stories" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="🦄 Bedtime Story: Magical bedtime stories" />
         <meta
           name="twitter:description"
-          content="Give your child a night full of dreams with their favorite characters."
+          content="Give your child a night full of dreams with his favorite characters."
         />
         <meta
           property="og:image"
