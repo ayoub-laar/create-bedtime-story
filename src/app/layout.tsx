@@ -24,7 +24,7 @@ export default function RootLayout({
         <title>Create a bedtime story in seconds using artificial intelligence</title>
         <meta
           name="description"
-          content="Create a  magical bedtime story for your children with our AI-powered tool. Include characters like Spider-Man, Cinderella, Pikachu, and more."
+          content="Create a magical bedtime story for your children with our AI-powered tool. Include characters like Spider-Man, Cinderella, Pikachu, and more. Quick & easy."
         />
         <meta name="keywords" content="bedtime story, bedtime story for kids, short bedtime story, cinderella bedtime story, bedtime story read online, bedtime story quick, story ai, bedtime story ai" />
 
