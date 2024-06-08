@@ -19,7 +19,7 @@ export function YourCharacters() {
           title="Who are your child's favorite characters?"
           description=""
         />
-        <p className="text-xl text-gray-500">Choose multiple characters to mix them together.</p>
+        <p className="text-md text-gray-300">Choose multiple characters to mix them together.</p>
         <div className="mt-5 flex flex-col gap-4">
           {charactersField.hasError && (
             <span className="text-red-600 text-xl sm:text-sm">⚠️ {charactersField.errorMessage}</span>
