@@ -1,5 +1,7 @@
 import { createContext, useEffect, useReducer, useState } from 'react'
 import { useLocalStorage } from '../hooks/use-local-storage'
+import { NavButtons } from "../components/Generate/NavButtons/index"
+import { useFormStep } from '../hooks/use-form-step'
 
 type ImagesField = {
   value: string[]
@@ -7,8 +9,20 @@ type ImagesField = {
   errorMessage: string
 }
 
-const initialState = {
+type AgeField = {
+  value: string
+  hasError: boolean
+  errorMessage: string
+}
+
+const initialCharactersState: ImagesField = {
   value: [],
+  hasError: false,
+  errorMessage: ''
+}
+
+const initialAgeState: AgeField = {
+  value: '',
   hasError: false,
   errorMessage: ''
 }
@@ -16,16 +30,16 @@ const initialState = {
 type FormContextData = {
   charactersField: ImagesField
   dispatchCharactersField: React.Dispatch<React.SetStateAction<{ type: string; errorMessage?: string, value?: string[] }>>
-  selectedAge: string
-  setSelectedAge: React.Dispatch<React.SetStateAction<string>>
+  ageField: AgeField
+  dispatchAgeField: React.Dispatch<React.SetStateAction<{ type: string; errorMessage?: string, value?: string }>>
   clearForm: () => void
 }
 
 export const FormContext = createContext({
-  charactersField: initialState,
+  charactersField: initialCharactersState,
   dispatchCharactersField: () => { },
-  selectedAge: null as any,
-  setSelectedAge: () => { },
+  ageField: initialAgeState,
+  dispatchAgeField: () => { },
   clearForm: () => { }
 } as FormContextData)
 
@@ -74,20 +88,65 @@ interface FormProviderProps {
 }
 
 export const FormProvider = ({ children }: FormProviderProps) => {
+  // local storage
+  const { saveValueToLocalStorage } = useLocalStorage()
+
   // Your characters
-  const [charactersField, dispatchCharactersField] = useReducer(handleFormState, initialState)
+  const [charactersField, dispatchCharactersField] = useReducer(handleFormState, initialCharactersState)
 
   // Age
-  const [selectedAge, setSelectedAge] = useState<string>('')
+  const [ageField, dispatchAgeField] = useReducer(handleFormState, initialAgeState)
 
   const { getValueFromLocalStorage, removeValueFromLocalStorage } = useLocalStorage()
+
+  const { handleNextStep, handlePreviousStep, currentStep } = useFormStep()
 
   function clearForm() {
     removeValueFromLocalStorage('your-characters')
     removeValueFromLocalStorage('age')
 
     dispatchCharactersField({ type: ACTIONS.SET_VALUE, value: [] })
-    setSelectedAge('')
+    dispatchAgeField({ type: ACTIONS.SET_VALUE, value: '' })
+  }
+
+  function validateForm() {
+    let formIsValid = true
+
+    if (currentStep === 1 && !charactersField.value.length) {
+      dispatchCharactersField({ type: ACTIONS.SET_ERROR, errorMessage: 'Select at least 1 characters' })
+      formIsValid = false
+    }
+
+    if (currentStep === 2 && !ageField.value) {
+      dispatchAgeField({ type: ACTIONS.SET_ERROR, errorMessage: 'Select age range' })
+      formIsValid = false
+    }
+
+    return formIsValid
+  }
+
+  function handleGoForwardStep() {
+    const isValid = validateForm()
+    
+    if (isValid) {
+      if (currentStep === 1) {
+        saveValueToLocalStorage('your-characters', JSON.stringify({
+          characters: charactersField
+        }))
+      }
+      if (currentStep === 2) {
+        saveValueToLocalStorage('age', JSON.stringify({
+          age: ageField
+        }))
+      }
+      handleNextStep()
+    } else {
+      // Si le formulaire n'est pas valide, effectue le scrolling vers le message d'erreur
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    }
   }
 
   useEffect(() => {
@@ -98,21 +157,25 @@ export const FormProvider = ({ children }: FormProviderProps) => {
 
     const ageFromLocalStorage = getValueFromLocalStorage('age')
     if (ageFromLocalStorage) {
-      setSelectedAge(ageFromLocalStorage)
+      dispatchAgeField({ type: ACTIONS.SET_VALUE, value: ageFromLocalStorage })
     }
   }, [])
 
   const value = {
     charactersField,
     dispatchCharactersField,
-    selectedAge,
-    setSelectedAge,
+    ageField,
+    dispatchAgeField,
     clearForm
   }
 
   return (
     <FormContext.Provider value={{ ...value }}>
       {children}
+      <NavButtons
+        handleGoForwardStep={handleGoForwardStep}
+        handleGoBack={handlePreviousStep}
+      />
     </FormContext.Provider>
   )
 }

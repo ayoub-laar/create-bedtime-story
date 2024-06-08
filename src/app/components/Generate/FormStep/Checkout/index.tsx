@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useState } from "react"
-import { Footer } from "../../Footer"
 import { useFormStep } from "../../../../hooks/use-form-step"
 import Form from "../../Form"
 import { loadStripe } from "@stripe/stripe-js"
@@ -11,7 +10,6 @@ import {
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '');
 
 export function Checkout() {
-  const { handlePreviousStep } = useFormStep()
   const [clientSecret, setClientSecret] = useState("")
 
   useEffect(() => {
@@ -40,9 +38,6 @@ export function Checkout() {
           )}
         </div>
       </Form.Card>
-      <Footer
-        handleGoBack={handlePreviousStep}
-      />
     </Fragment>
   )
 }

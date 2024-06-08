@@ -2,12 +2,9 @@ interface ImagesInputProps {
     images: string[];
     value: string[];
     onChange: (value: string[]) => void;
-    errorMessage: string;
-    hasError: boolean;
-    clearError: () => void;
 }
 
-export function ImagesInput({ images, value, onChange, errorMessage, hasError, clearError }: ImagesInputProps) {
+export function ImagesInput({ images, value, onChange }: ImagesInputProps) {
     function handleInputChange(imagePath: string) {
         if (value.includes(imagePath)) {
             onChange(value.filter(itemUrl => itemUrl !== imagePath))

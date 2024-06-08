@@ -1,31 +1,17 @@
 import { Fragment } from "react"
-import { Footer } from "../../Footer"
 import Form from "../../Form"
-import { useFormStep } from "../../../../hooks/use-form-step"
-import { useLocalStorage } from "../../../../hooks/use-local-storage"
 import { useForm } from "../../../../hooks/use-form"
 import { RadioGroup, Radio } from "@nextui-org/react"
+import { ACTIONS } from "@/app/contexts/form"
 
 export function Age() {
   const {
-    selectedAge,
-    setSelectedAge
+    ageField,
+    dispatchAgeField
   } = useForm()
 
-  const { handleNextStep, handlePreviousStep } = useFormStep()
-
-  const { saveValueToLocalStorage } = useLocalStorage()
-
-  function handleGoForwardStep() {
-    if (!selectedAge) {
-      return
-    }
-    saveValueToLocalStorage('age', selectedAge)
-    handleNextStep()
-  }
-
   function handleSelectedAge(e: React.ChangeEvent<HTMLInputElement>) {
-    setSelectedAge(e.target.value)
+    dispatchAgeField({ type: ACTIONS.SET_VALUE, value: e.target.value })
   }
 
   return (
@@ -35,10 +21,14 @@ export function Age() {
           title="Select age range"
           description="To make the story unique" //todo
         />
+        aa
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+        {ageField.hasError && (
+            <span className="text-red-600 text-xl sm:text-sm">⚠️ {ageField.errorMessage}</span>
+          )}
           <RadioGroup
             color="primary"
-            defaultValue={selectedAge ?? '4/5'}
+            defaultValue={ageField.value ?? '4/5'}
             onChange={handleSelectedAge}
           >
             <Radio value="2/3">2-3 years old</Radio>
@@ -49,10 +39,6 @@ export function Age() {
           </RadioGroup>
         </div>
       </Form.Card>
-      <Footer
-        handleGoForwardStep={handleGoForwardStep}
-        handleGoBack={handlePreviousStep}
-      />
     </Fragment>
   )
 }
