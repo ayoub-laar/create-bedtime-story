@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer, useState } from 'react'
+import { createContext, useEffect, useReducer } from 'react'
 import { useLocalStorage } from '../hooks/use-local-storage'
 import { NavButtons } from "../components/Generate/NavButtons/index"
 import { useFormStep } from '../hooks/use-form-step'
@@ -49,7 +49,7 @@ export const ACTIONS = {
   CLEAR_ERROR: 'CLEAR_ERROR'
 }
 
-function handleFormState(
+function handleImagesFieldState(
   state: ImagesField,
   action: any
 ) {
@@ -70,7 +70,36 @@ function handleFormState(
     case ACTIONS.CLEAR_ERROR:
       return {
         ...state,
-        error: '',
+        errorMessage: '',
+        hasError: false
+      }
+    default:
+      return state
+  }
+}
+
+function handleAgeFieldState(
+  state: AgeField,
+  action: any
+) {
+  switch (action.type) {
+    case ACTIONS.SET_VALUE:
+      return {
+        ...state,
+        value: action.value,
+        hasError: false,
+        errorMessage: ''
+      }
+    case ACTIONS.SET_ERROR:
+      return {
+        ...state,
+        hasError: true,
+        errorMessage: action.errorMessage
+      }
+    case ACTIONS.CLEAR_ERROR:
+      return {
+        ...state,
+        errorMessage: '',
         hasError: false
       }
     default:
@@ -92,10 +121,10 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   const { saveValueToLocalStorage } = useLocalStorage()
 
   // Your characters
-  const [charactersField, dispatchCharactersField] = useReducer(handleFormState, initialCharactersState)
+  const [charactersField, dispatchCharactersField] = useReducer(handleImagesFieldState, initialCharactersState)
 
   // Age
-  const [ageField, dispatchAgeField] = useReducer(handleFormState, initialAgeState)
+  const [ageField, dispatchAgeField] = useReducer(handleAgeFieldState, initialAgeState)
 
   const { getValueFromLocalStorage, removeValueFromLocalStorage } = useLocalStorage()
 
@@ -113,7 +142,7 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     let formIsValid = true
 
     if (currentStep === 1 && !charactersField.value.length) {
-      dispatchCharactersField({ type: ACTIONS.SET_ERROR, errorMessage: 'Select at least 1 characters' })
+      dispatchCharactersField({ type: ACTIONS.SET_ERROR, errorMessage: 'Select at least 1 character' })
       formIsValid = false
     }
 
