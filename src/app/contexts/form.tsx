@@ -1,6 +1,5 @@
 import { createContext, useEffect, useReducer } from 'react'
 import { useLocalStorage } from '../hooks/use-local-storage'
-import { NavButtons } from "../components/Generate/NavButtons/index"
 import { useFormStep } from '../hooks/use-form-step'
 
 type ImagesField = {
@@ -201,10 +200,6 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   return (
     <FormContext.Provider value={{ ...value }}>
       {children}
-      <NavButtons
-        handleGoForwardStep={handleGoForwardStep}
-        handleGoBack={handlePreviousStep}
-      />
     </FormContext.Provider>
   )
 }

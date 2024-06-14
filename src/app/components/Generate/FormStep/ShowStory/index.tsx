@@ -254,7 +254,6 @@ const ShowStory = () => {
             ); /* Fond plus sombre avec une légère transparence */
             color: white; /* Texte en blanc pour le mode sombre */
             border-radius: 8px;
-            padding: 40px; /* Augmenter les marges internes */
             overflow: hidden; /* Assure que l'effet flouté ne dépasse pas les bords arrondis */
           }
           .card-background {

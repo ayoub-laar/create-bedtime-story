@@ -3,6 +3,7 @@ import { useFormStep } from "../../../hooks/use-form-step"
 import { YourCharacters } from "./YourCharacters"
 import { Age } from "./Age"
 import ShowStory from "./ShowStory"
+import { NavButtons } from "../NavButtons"
 
 const steps = [
   {
@@ -20,13 +21,14 @@ const steps = [
 ]
 
 export function FormStep() {
-  const { currentStep } = useFormStep()
+  const { currentStep, handlePreviousStep, handleNextStep } = useFormStep()
 
   const step = steps.find(({ step }) => step === currentStep)
 
   return (
     <div className="py-28 border border-gray-300 rounded-2xl p-4 sm:p-8 my-4 sm:my-8 flex flex-col flex-1 justify-between md:items-center mx-auto max-w-screen-md">
       {step && step.component()}
+      <NavButtons handleGoForwardStep={handleNextStep} handleGoBack={handlePreviousStep} />
     </div>
   )
-} 
+}
