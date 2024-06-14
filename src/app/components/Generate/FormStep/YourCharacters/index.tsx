@@ -16,7 +16,7 @@ export function YourCharacters() {
     <Fragment>
       <Form.Card>
         <Form.Header
-          title="Who are your child's favorite characters?"
+          title="Who are your kid's favorite characters?"
           description=""
         />
         <p className="text-md text-gray-300">Choose multiple characters to mix them together.</p>
