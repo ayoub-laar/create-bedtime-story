@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState, useRef } from "react";
+import { Fragment, useEffect, useState, useRef, useContext } from "react";
 import Form from "../../Form";
 import {
   EmbeddedCheckoutProvider,
@@ -13,6 +13,7 @@ import {
   ParsedEvent,
   ReconnectInterval,
 } from "eventsource-parser";
+import { FormStepContext } from "../../../../contexts/form-step";
 
 const ShowStory = () => {
   const {
@@ -20,6 +21,7 @@ const ShowStory = () => {
     removeValueFromLocalStorage,
     saveValueToLocalStorage,
   } = useLocalStorage();
+  const { moveToStep } = useContext(FormStepContext);
   const [clientSecret, setClientSecret] = useState("");
   const [stripePromise, setStripePromise] = useState<Stripe | null>(null);
   const [loading, setLoading] = useState(false);
@@ -182,6 +184,14 @@ const ShowStory = () => {
       });
     }
   }, [showFullStory]);
+
+  const handleCreateNewStory = () => {
+    removeValueFromLocalStorage("currentStory");
+    removeValueFromLocalStorage("age");
+    removeValueFromLocalStorage("currentStep");
+    removeValueFromLocalStorage("your-characters");
+    moveToStep(1);
+  };
 
   return (
     <Fragment>
@@ -355,6 +365,16 @@ const ShowStory = () => {
               )}
             </div>
           </div>
+          {!loading && (
+            <Button
+              onClick={handleCreateNewStory}
+              size="lg"
+              radius="full"
+              className="bg-gradient-to-tr from-blue-500 to-green-500 text-white shadow-lg mt-4"
+            >
+              Create new story
+            </Button>
+          )}
           {showFullStory &&
             !paymentSuccess &&
             clientSecret &&
