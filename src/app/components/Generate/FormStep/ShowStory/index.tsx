@@ -14,6 +14,7 @@ import {
   ReconnectInterval,
 } from "eventsource-parser";
 import { FormStepContext } from "../../../../contexts/form-step";
+import jsPDF from "jspdf";
 
 const ShowStory = () => {
   const {
@@ -53,7 +54,7 @@ const ShowStory = () => {
             .split(".webp")[0];
         })
         .toString();
-      const prompt = `Generate a wonderful and complete bedtime story for a ${age} years-old child featuring ${characters}. The story should be detailed, include a title at the beginning, and be broken into paragraphs for better readability.`;
+      const prompt = `Generate a wonderful and complete bedtime story for a ${age} years-old kid featuring ${characters}. The story should be detailed and must be broken into paragraphs for better readability. The response should only include the title and the story in the following format without any additional text: "**Title: ...**" "**Story: ...**"`;
 
       const response = await fetch("/api/openai", {
         method: "POST",
@@ -81,8 +82,11 @@ const ShowStory = () => {
             setStory((prev) => {
               const newStory = prev + text;
               const { title, formattedStory } = extractTitleAndStory(newStory);
-              setTitle(title);
-              saveValueToLocalStorage("currentStory", newStory);
+              if (title) {
+                setTitle(title);
+                saveValueToLocalStorage("storyTitle", title); // Save title to local storage
+              }
+              saveValueToLocalStorage("currentStory", newStory); // Save story to local storage
               return formattedStory;
             });
           } catch (e) {
@@ -120,10 +124,11 @@ const ShowStory = () => {
         if (data.status === "complete") {
           setPaymentSuccess(true);
           const savedStory = getValueFromLocalStorage("currentStory");
+          const savedTitle = getValueFromLocalStorage("storyTitle"); // Retrieve title from local storage
           if (savedStory) {
-            const { title, formattedStory } = extractTitleAndStory(savedStory);
+            const { formattedStory } = extractTitleAndStory(savedStory);
             setStory(formattedStory);
-            setTitle(title);
+            setTitle(savedTitle); // Set the title from local storage
           }
         }
       }
@@ -150,22 +155,24 @@ const ShowStory = () => {
   const handlePaymentSuccess = () => {
     setPaymentSuccess(true);
     const savedStory = getValueFromLocalStorage("currentStory");
+    const savedTitle = getValueFromLocalStorage("storyTitle"); // Retrieve title from local storage
     if (savedStory) {
-      const { title, formattedStory } = extractTitleAndStory(savedStory);
+      const { formattedStory } = extractTitleAndStory(savedStory);
       setStory(formattedStory);
-      setTitle(title);
+      setTitle(savedTitle); // Set the title from local storage
     }
   };
 
   const extractTitleAndStory = (text: string) => {
-    const titleRegex = /\*\*Title: (.+?)\*\*|\*\*(.+?)\*\*/;
+    const titleRegex = /\*\*Title: (.+?)\*\*\n+\*\*Story:\*\*(.+)/s;
     const titleMatch = text.match(titleRegex);
     let title = "";
+    let story = text;
     if (titleMatch) {
-      title = titleMatch[1] || titleMatch[2];
-      text = text.replace(titleMatch[0], ""); // Remove the title from the text
+      title = titleMatch[1].trim();
+      story = titleMatch[2].trim();
     }
-    return { title, formattedStory: text };
+    return { title, formattedStory: story };
   };
 
   const formatStory = (text: string) => {
@@ -190,7 +197,39 @@ const ShowStory = () => {
     removeValueFromLocalStorage("age");
     removeValueFromLocalStorage("currentStep");
     removeValueFromLocalStorage("your-characters");
+    removeValueFromLocalStorage("storyTitle"); // Remove title from local storage
     moveToStep(1);
+    router.push("/");
+  };
+
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+    const margin = 10;
+    const pageHeight = doc.internal.pageSize.height;
+    const textWidth = doc.internal.pageSize.width - 2 * margin;
+
+    // Add custom header
+    doc.setFontSize(18);
+    doc.text("CreateBedtimeStory.com", margin, margin + 10);
+
+    // Add story title
+    doc.setFontSize(16);
+    doc.text(title, margin, margin + 30);
+
+    // Add story text
+    doc.setFontSize(12);
+    let y = margin + 40;
+    const storyLines = doc.splitTextToSize(story, textWidth);
+    storyLines.forEach((line) => {
+      if (y + 10 > pageHeight - margin) {
+        doc.addPage();
+        y = margin;
+      }
+      doc.text(line, margin, y);
+      y += 10;
+    });
+
+    doc.save("bedtime-story.pdf");
   };
 
   return (
@@ -233,7 +272,7 @@ const ShowStory = () => {
           }
           .overlay {
             position: absolute;
-            top: 0;
+            top: 0,
             left: 0;
             width: 100%;
             height: 100%;
@@ -315,8 +354,8 @@ const ShowStory = () => {
           }
           .blur-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 0,
+            left: 0,
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.7);
@@ -373,6 +412,16 @@ const ShowStory = () => {
               className="bg-gradient-to-tr from-blue-500 to-green-500 text-white shadow-lg mt-4"
             >
               Create new story
+            </Button>
+          )}
+          {paymentSuccess && (
+            <Button
+              onClick={handleDownloadPDF}
+              size="lg"
+              radius="full"
+              className="bg-gradient-to-tr from-purple-500 to-indigo-500 text-white shadow-lg mt-4"
+            >
+              Download as PDF
             </Button>
           )}
           {showFullStory &&
