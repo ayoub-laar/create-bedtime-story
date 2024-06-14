@@ -45,7 +45,7 @@ const ShowStory = () => {
       }
 
       const characters = getValueFromLocalStorage("your-characters")
-        .characters.value.map((characterImgfilePath) => {
+        .characters.value.map((characterImgfilePath: string) => {
           return characterImgfilePath
             .split("/images/characters/")[1]
             .split(".webp")[0];
