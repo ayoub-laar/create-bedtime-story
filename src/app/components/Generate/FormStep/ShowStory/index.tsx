@@ -24,6 +24,7 @@ const ShowStory = () => {
   const [stripePromise, setStripePromise] = useState<Stripe | null>(null);
   const [loading, setLoading] = useState(false);
   const [story, setStory] = useState("");
+  const [title, setTitle] = useState("");
   const [showFullStory, setShowFullStory] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const router = useRouter();
@@ -50,7 +51,7 @@ const ShowStory = () => {
             .split(".webp")[0];
         })
         .toString();
-      const prompt = `Generate a wonderful and complete bedtime story for a ${age} years-old child featuring ${characters}. The story should be detailed and broken into paragraphs for better readability.`;
+      const prompt = `Generate a wonderful and complete bedtime story for a ${age} years-old child featuring ${characters}. The story should be detailed, include a title at the beginning, and be broken into paragraphs for better readability.`;
 
       const response = await fetch("/api/openai", {
         method: "POST",
@@ -77,8 +78,10 @@ const ShowStory = () => {
             const text = JSON.parse(data).text ?? "";
             setStory((prev) => {
               const newStory = prev + text;
+              const { title, formattedStory } = extractTitleAndStory(newStory);
+              setTitle(title);
               saveValueToLocalStorage("currentStory", newStory);
-              return newStory;
+              return formattedStory;
             });
           } catch (e) {
             console.error(e);
@@ -106,7 +109,7 @@ const ShowStory = () => {
       setStripePromise(stripe);
     };
 
-    const checkPaymentStatus = async (sessionId) => {
+    const checkPaymentStatus = async (sessionId: string) => {
       if (sessionId) {
         const response = await fetch(
           `/api/checkout_sessions?session_id=${sessionId}`
@@ -116,7 +119,9 @@ const ShowStory = () => {
           setPaymentSuccess(true);
           const savedStory = getValueFromLocalStorage("currentStory");
           if (savedStory) {
-            setStory(savedStory);
+            const { title, formattedStory } = extractTitleAndStory(savedStory);
+            setStory(formattedStory);
+            setTitle(title);
           }
         }
       }
@@ -144,12 +149,25 @@ const ShowStory = () => {
     setPaymentSuccess(true);
     const savedStory = getValueFromLocalStorage("currentStory");
     if (savedStory) {
-      setStory(savedStory);
+      const { title, formattedStory } = extractTitleAndStory(savedStory);
+      setStory(formattedStory);
+      setTitle(title);
     }
   };
 
-  const formatStory = (text) => {
-    return text.split("\n\n").map((paragraph, index) => (
+  const extractTitleAndStory = (text: string) => {
+    const titleRegex = /\*\*Title: (.+?)\*\*|\*\*(.+?)\*\*/;
+    const titleMatch = text.match(titleRegex);
+    let title = "";
+    if (titleMatch) {
+      title = titleMatch[1] || titleMatch[2];
+      text = text.replace(titleMatch[0], ""); // Remove the title from the text
+    }
+    return { title, formattedStory: text };
+  };
+
+  const formatStory = (text: string) => {
+    return text.split("\n\n").map((paragraph: string, index: number) => (
       <p key={index} className="mt-4">
         {paragraph}
       </p>
@@ -158,7 +176,7 @@ const ShowStory = () => {
 
   useEffect(() => {
     if (showFullStory && paywallRef.current) {
-      paywallRef.current.scrollIntoView({
+      (paywallRef.current as HTMLElement).scrollIntoView({
         behavior: "smooth",
         block: "center",
       });
@@ -308,6 +326,11 @@ const ShowStory = () => {
                 </div>
               ) : (
                 <>
+                  {title && (
+                    <h2 className="text-2xl font-bold text-center mt-4">
+                      {title}
+                    </h2>
+                  )}
                   {paymentSuccess ? (
                     formatStory(story)
                   ) : (
@@ -348,7 +371,7 @@ const ShowStory = () => {
                     stripe={stripePromise}
                     options={{ clientSecret }}
                   >
-                    <EmbeddedCheckout onSuccess={handlePaymentSuccess} />
+                    <EmbeddedCheckout />
                   </EmbeddedCheckoutProvider>
                 </div>
               </>
