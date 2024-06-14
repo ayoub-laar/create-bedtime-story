@@ -1,4 +1,3 @@
-import { Analytics } from "@vercel/analytics/react"
 import './globals.css'
 import { Ubuntu } from 'next/font/google'
 import NavBar from "./components/Home/NavBar"
@@ -65,7 +64,6 @@ export default function RootLayout({
           <div className="flex flex-col min-h-screen">
             <NavBar />
             {children}
-            <Analytics />
             <Footer />
           </div>
         </Providers>
