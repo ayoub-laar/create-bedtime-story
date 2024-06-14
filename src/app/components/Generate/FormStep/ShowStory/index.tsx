@@ -220,7 +220,7 @@ const ShowStory = () => {
     doc.setFontSize(12);
     let y = margin + 40;
     const storyLines = doc.splitTextToSize(story, textWidth);
-    storyLines.forEach((line) => {
+    storyLines.forEach((line: string) => {
       if (y + 10 > pageHeight - margin) {
         doc.addPage();
         y = margin;
@@ -244,7 +244,7 @@ const ShowStory = () => {
         <style jsx>{`
           .card {
             position: relative;
-            max-width: 800px; /* Augmenter la largeur maximale de la carte */
+            max-width: 1000px; /* Augmenter la largeur maximale de la carte */
             width: 100%;
             background-color: rgba(
               0,
@@ -254,7 +254,7 @@ const ShowStory = () => {
             ); /* Fond plus sombre avec une légère transparence */
             color: white; /* Texte en blanc pour le mode sombre */
             border-radius: 8px;
-            padding: 20px;
+            padding: 40px; /* Augmenter les marges internes */
             overflow: hidden; /* Assure que l'effet flouté ne dépasse pas les bords arrondis */
           }
           .card-background {
@@ -362,7 +362,7 @@ const ShowStory = () => {
             z-index: 10;
           }
         `}</style>
-        <section className="relative max-w-screen-xl mx-auto py-28 gap-12 md:px-8 flex flex-col justify-center items-center">
+        <section className="relative max-w-screen-xl mx-auto py-28 gap-12 md:px-12 flex flex-col justify-center items-center">
           <div className="card">
             <div className="card-background"></div>
             <div className="mt-4">
@@ -421,7 +421,7 @@ const ShowStory = () => {
               radius="full"
               className="bg-gradient-to-tr from-purple-500 to-indigo-500 text-white shadow-lg mt-4"
             >
-              Download as PDF
+              📁 Download as PDF
             </Button>
           )}
           {showFullStory &&
