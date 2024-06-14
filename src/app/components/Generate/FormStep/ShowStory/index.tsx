@@ -5,7 +5,6 @@ import {
   EmbeddedCheckout,
 } from "@stripe/react-stripe-js";
 import { Button } from "@nextui-org/react";
-import { Stripe, loadStripe } from "@stripe/stripe-js";
 import { useLocalStorage } from "../../../../hooks/use-local-storage";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -15,6 +14,7 @@ import {
 } from "eventsource-parser";
 import { FormStepContext } from "../../../../contexts/form-step";
 import jsPDF from "jspdf";
+import { Stripe } from "@stripe/stripe-js";
 
 const ShowStory = () => {
   const {
@@ -24,7 +24,7 @@ const ShowStory = () => {
   } = useLocalStorage();
   const { moveToStep } = useContext(FormStepContext);
   const [clientSecret, setClientSecret] = useState("");
-  const [stripePromise, setStripePromise] = useState<Stripe | null>(null);
+  const [stripePromise, setStripePromise] = useState<Promise<Stripe | null> | null>(null);
   const [loading, setLoading] = useState(false);
   const [story, setStory] = useState("");
   const [title, setTitle] = useState("");
@@ -109,10 +109,9 @@ const ShowStory = () => {
     };
 
     const loadStripeInstance = async () => {
-      const stripe = await loadStripe(
-        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
-      );
-      setStripePromise(stripe);
+      const { loadStripe } = await import("@stripe/stripe-js");
+      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "");
+      setStripePromise(Promise.resolve(stripe));
     };
 
     const checkPaymentStatus = async (sessionId: string) => {
@@ -272,7 +271,7 @@ const ShowStory = () => {
           .overlay {
             position: absolute;
             top: 0,
-            left: 0;
+            left: 0,
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.7);
