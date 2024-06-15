@@ -50,10 +50,7 @@ export const FormStepProvider = ({ children }: FormStepProviderProps) => {
 
   const handleNextStep = () => {
     // Scroll to top of the page
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    document.documentElement.scrollIntoView({ behavior: "smooth" });
 
     const newStepValue = currentStep + 1;
     if (currentStep < steps.length) {
