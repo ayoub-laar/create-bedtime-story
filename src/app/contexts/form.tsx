@@ -31,7 +31,8 @@ type FormContextData = {
   dispatchCharactersField: React.Dispatch<React.SetStateAction<{ type: string; errorMessage?: string, value?: string[] }>>
   ageField: AgeField
   dispatchAgeField: React.Dispatch<React.SetStateAction<{ type: string; errorMessage?: string, value?: string }>>
-  clearForm: () => void
+  clearForm: () => void,
+  handleGoForwardStep: () => void
 }
 
 export const FormContext = createContext({
@@ -39,7 +40,8 @@ export const FormContext = createContext({
   dispatchCharactersField: () => { },
   ageField: initialAgeState,
   dispatchAgeField: () => { },
-  clearForm: () => { }
+  clearForm: () => { },
+  handleGoForwardStep: () => { }
 } as FormContextData)
 
 export const ACTIONS = {
@@ -116,18 +118,16 @@ interface FormProviderProps {
 }
 
 export const FormProvider = ({ children }: FormProviderProps) => {
-  // local storage
-  const { saveValueToLocalStorage } = useLocalStorage()
-
   // Your characters
   const [charactersField, dispatchCharactersField] = useReducer(handleImagesFieldState, initialCharactersState)
 
   // Age
   const [ageField, dispatchAgeField] = useReducer(handleAgeFieldState, initialAgeState)
 
-  const { getValueFromLocalStorage, removeValueFromLocalStorage } = useLocalStorage()
+  // Local storage
+  const { getValueFromLocalStorage, removeValueFromLocalStorage, saveValueToLocalStorage } = useLocalStorage()
 
-  const { handleNextStep, handlePreviousStep, currentStep } = useFormStep()
+  const { handleNextStep, handlePreviousStep, currentStep } = useFormStep();
 
   function clearForm() {
     removeValueFromLocalStorage('your-characters')
@@ -138,42 +138,54 @@ export const FormProvider = ({ children }: FormProviderProps) => {
   }
 
   function validateForm() {
-    let formIsValid = true
+    let formIsValid = true;
 
     if (currentStep === 1 && !charactersField.value.length) {
-      dispatchCharactersField({ type: ACTIONS.SET_ERROR, errorMessage: 'Select at least 1 character' })
-      formIsValid = false
+      dispatchCharactersField({
+        type: ACTIONS.SET_ERROR,
+        errorMessage: "Select at least 1 character",
+      });
+      formIsValid = false;
     }
 
-    if (currentStep === 2 && !ageField.value) {
-      dispatchAgeField({ type: ACTIONS.SET_ERROR, errorMessage: 'Select age range' })
-      formIsValid = false
+    if (currentStep === 2 && (!ageField.value || typeof ageField.value === 'object')) {
+      dispatchAgeField({
+        type: ACTIONS.SET_ERROR,
+        errorMessage: "Select age range",
+      });
+      formIsValid = false;
     }
 
-    return formIsValid
+    return formIsValid;
   }
 
   function handleGoForwardStep() {
-    const isValid = validateForm()
-    
+    const isValid = validateForm();
+
     if (isValid) {
       if (currentStep === 1) {
-        saveValueToLocalStorage('your-characters', JSON.stringify({
-          characters: charactersField
-        }))
+        saveValueToLocalStorage(
+          "your-characters",
+          JSON.stringify({
+            characters: charactersField,
+          })
+        );
       }
       if (currentStep === 2) {
-        saveValueToLocalStorage('age', JSON.stringify({
-          age: ageField
-        }))
+        saveValueToLocalStorage(
+          "age",
+          JSON.stringify({
+            age: ageField,
+          })
+        );
       }
-      handleNextStep()
+      handleNextStep();
     } else {
       // Si le formulaire n'est pas valide, effectue le scrolling vers le message d'erreur
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
-      })
+        behavior: "smooth",
+      });
     }
   }
 
@@ -181,11 +193,15 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     const YourCharactersFromLocalStorage = getValueFromLocalStorage('your-characters')
     if (YourCharactersFromLocalStorage) {
       dispatchCharactersField({ type: ACTIONS.SET_VALUE, value: YourCharactersFromLocalStorage.characters.value })
+    } else {
+      dispatchCharactersField({ type: ACTIONS.SET_VALUE, value: [] })
     }
 
     const ageFromLocalStorage = getValueFromLocalStorage('age')
     if (ageFromLocalStorage) {
       dispatchAgeField({ type: ACTIONS.SET_VALUE, value: ageFromLocalStorage })
+    } else {
+      dispatchAgeField({ type: ACTIONS.SET_VALUE, value: '' })
     }
   }, [])
 
@@ -194,8 +210,9 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     dispatchCharactersField,
     ageField,
     dispatchAgeField,
-    clearForm
-  }
+    clearForm,
+    handleGoForwardStep
+  };
 
   return (
     <FormContext.Provider value={{ ...value }}>

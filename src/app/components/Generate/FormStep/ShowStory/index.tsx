@@ -12,9 +12,9 @@ import {
   ParsedEvent,
   ReconnectInterval,
 } from "eventsource-parser";
-import { FormStepContext } from "../../../../contexts/form-step";
 import jsPDF from "jspdf";
 import { Stripe } from "@stripe/stripe-js";
+import { useFormStep } from "@/app/hooks/use-form-step";
 
 const ShowStory = () => {
   const {
@@ -22,7 +22,7 @@ const ShowStory = () => {
     removeValueFromLocalStorage,
     saveValueToLocalStorage,
   } = useLocalStorage();
-  const { moveToStep } = useContext(FormStepContext);
+  const { moveToStep } = useFormStep();
   const [clientSecret, setClientSecret] = useState("");
   const [stripePromise, setStripePromise] = useState<Promise<Stripe | null> | null>(null);
   const [loading, setLoading] = useState(false);

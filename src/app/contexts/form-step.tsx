@@ -1,5 +1,3 @@
-// src/app/contexts/form-step.tsx
-
 import { createContext, useEffect, useState } from "react";
 import { useLocalStorage } from "../hooks/use-local-storage";
 
@@ -37,9 +35,7 @@ export const FormStepProvider = ({ children }: FormStepProviderProps) => {
   useEffect(() => {
     const step = getValueFromLocalStorage("currentStep");
     if (step) setCurrentStep(Number(step));
-  }, [getValueFromLocalStorage]);
 
-  useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
       if (event.key === "currentStep") {
         setCurrentStep(Number(event.newValue));
@@ -50,7 +46,7 @@ export const FormStepProvider = ({ children }: FormStepProviderProps) => {
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, []);
+  }, [getValueFromLocalStorage]);
 
   const handleNextStep = () => {
     // Scroll to top of the page
@@ -86,10 +82,11 @@ export const FormStepProvider = ({ children }: FormStepProviderProps) => {
         currentStep,
         handleNextStep,
         handlePreviousStep,
-        moveToStep,
+        moveToStep
       }}
     >
       {children}
     </FormStepContext.Provider>
   );
 };
+

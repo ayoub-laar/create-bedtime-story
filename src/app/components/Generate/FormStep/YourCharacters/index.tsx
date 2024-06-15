@@ -27,7 +27,9 @@ export function YourCharacters() {
           <ImagesInput
             images={images}
             value={charactersField.value}
-            onChange={(value: string[]) => dispatchCharactersField({ type: ACTIONS.SET_VALUE, value })}
+            onChange={(value: string[]) => {
+              dispatchCharactersField({ type: ACTIONS.SET_VALUE, value })
+            }}
           />
         </div>
       </Form.Card>
