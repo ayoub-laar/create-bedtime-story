@@ -6,9 +6,7 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    // 15/06/2024: This is a perf/lighthouse improve rf. https://github.com/nextui-org/nextui/issues/2262
-    // "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@nextui-org/theme/dist/components/(button|radio).js",
+    "./node_modules/@nextui-org/theme/dist/components/(button|radio).js", //rf. https://github.com/nextui-org/nextui/issues/2262
   ],
   theme: {
     extend: {
