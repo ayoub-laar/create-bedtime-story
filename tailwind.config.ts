@@ -6,7 +6,7 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/components/(button|radio).js", //rf. https://github.com/nextui-org/nextui/issues/2262
+    "./node_modules/@nextui-org/theme/dist/components/(button|radio|navbar|divider).js", //rf. https://github.com/nextui-org/nextui/issues/2262
   ],
   theme: {
     extend: {
