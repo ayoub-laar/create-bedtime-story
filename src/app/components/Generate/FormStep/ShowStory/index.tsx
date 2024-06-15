@@ -53,7 +53,7 @@ const ShowStory = () => {
             .split(".webp")[0];
         })
         .toString();
-      const prompt = `Generate a wonderful and complete bedtime story for a ${age} years-old kid featuring ${characters}. The story should be detailed and must be broken into paragraphs for better readability. The response should only include the title and the story in the following format without any additional text: "**Title: ...**" "**Story: ...**"`;
+      const prompt = `Generate a wonderful and complete bedtime story for a ${age} years-old kid featuring ${characters}. The story should be detailed, contain emojis and must be broken into paragraphs for better readability. The response should only include the title and the story in the following format without any additional text: "**Title: ...**" "**Story: ...**"`;
 
       const response = await fetch("/api/openai", {
         method: "POST",
