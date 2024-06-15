@@ -21,7 +21,6 @@ export function Age() {
           title="Select age range"
           description="To make the story unique" //todo
         />
-        aa
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
         {ageField.hasError && (
             <span className="text-red-600 text-xl sm:text-sm">⚠️ {ageField.errorMessage}</span>
