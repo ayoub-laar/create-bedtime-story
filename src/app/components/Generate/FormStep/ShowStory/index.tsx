@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState, useRef, useContext } from "react";
+import { Fragment, useEffect, useState, useRef } from "react";
 import Form from "../../Form";
 import {
   EmbeddedCheckoutProvider,
@@ -12,7 +12,6 @@ import {
   ParsedEvent,
   ReconnectInterval,
 } from "eventsource-parser";
-import jsPDF from "jspdf";
 import { Stripe } from "@stripe/stripe-js";
 import { useFormStep } from "@/app/hooks/use-form-step";
 
@@ -201,7 +200,8 @@ const ShowStory = () => {
     router.push("/");
   };
 
-  const handleDownloadPDF = () => {
+  const handleDownloadPDF = async () => {
+    const { default: jsPDF } = await import('jspdf');
     const doc = new jsPDF();
     const margin = 10;
     const pageHeight = doc.internal.pageSize.height;
