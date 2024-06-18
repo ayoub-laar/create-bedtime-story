@@ -23,7 +23,8 @@ const ShowStory = () => {
   } = useLocalStorage();
   const { moveToStep } = useFormStep();
   const [clientSecret, setClientSecret] = useState("");
-  const [stripePromise, setStripePromise] = useState<Promise<Stripe | null> | null>(null);
+  const [stripePromise, setStripePromise] =
+    useState<Promise<Stripe | null> | null>(null);
   const [loading, setLoading] = useState(false);
   const [story, setStory] = useState("");
   const [title, setTitle] = useState("");
@@ -44,6 +45,7 @@ const ShowStory = () => {
       // if no characters (maybe try to reload a free story with old stripe session)
       if (!getValueFromLocalStorage("your-characters")) {
         router.push("/");
+        return;
       }
 
       const characters = getValueFromLocalStorage("your-characters")
@@ -109,7 +111,9 @@ const ShowStory = () => {
 
     const loadStripeInstance = async () => {
       const { loadStripe } = await import("@stripe/stripe-js");
-      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "");
+      const stripe = await loadStripe(
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
+      );
       setStripePromise(Promise.resolve(stripe));
     };
 
@@ -132,22 +136,26 @@ const ShowStory = () => {
       }
     };
 
-    loadStripeInstance();
+    const init = async () => {
+      await loadStripeInstance();
 
-    fetch("/api/checkout_sessions", {
-      method: "POST",
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
+      fetch("/api/checkout_sessions", {
+        method: "POST",
+      })
+        .then((res) => res.json())
+        .then((data) => setClientSecret(data.clientSecret));
 
-    if (!storyFetchedRef.current) {
-      if (sessionId) {
-        checkPaymentStatus(sessionId);
-      } else {
-        fetchStory();
+      if (!storyFetchedRef.current) {
+        if (sessionId) {
+          await checkPaymentStatus(sessionId);
+        } else {
+          fetchStory();
+        }
+        storyFetchedRef.current = true;
       }
-      storyFetchedRef.current = true;
-    }
+    };
+
+    init();
   }, [sessionId]);
 
   const handlePaymentSuccess = () => {
@@ -175,7 +183,7 @@ const ShowStory = () => {
 
   const formatStory = (text: string) => {
     return text.split("\n\n").map((paragraph: string, index: number) => (
-      <p key={index} className="mt-4">
+      <p key={index} className="mt-4 text-lg leading-7">
         {paragraph}
       </p>
     ));
@@ -201,7 +209,7 @@ const ShowStory = () => {
   };
 
   const handleDownloadPDF = async () => {
-    const { default: jsPDF } = await import('jspdf');
+    const { default: jsPDF } = await import("jspdf");
     const doc = new jsPDF();
     const margin = 10;
     const pageHeight = doc.internal.pageSize.height;
@@ -236,7 +244,7 @@ const ShowStory = () => {
       <Form.Card>
         <Form.Header title="Your bedtime story 🪄" description="" />
         {paymentSuccess && (
-          <p className="mt-4 text-center text-green-500">
+          <p className="mt-4 text-center text-green-500 animate-pulse">
             This is the full story. Thank you for your purchase!
           </p>
         )}
@@ -245,12 +253,7 @@ const ShowStory = () => {
             position: relative;
             max-width: 1000px; /* Augmenter la largeur maximale de la carte */
             width: 100%;
-            background-color: rgba(
-              0,
-              0,
-              0,
-              0.8
-            ); /* Fond plus sombre avec une légère transparence */
+            background-color: rgba(0, 0, 0, 0.8); /* Fond plus sombre avec une légère transparence */
             color: white; /* Texte en blanc pour le mode sombre */
             border-radius: 8px;
             overflow: hidden; /* Assure que l'effet flouté ne dépasse pas les bords arrondis */
@@ -359,11 +362,43 @@ const ShowStory = () => {
             background: rgba(0, 0, 0, 0.7);
             z-index: 10;
           }
+          .teasing-text {
+            animation: fadeInUp 1s ease-out;
+          }
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translate3d(0, 20%, 0);
+            }
+            to {
+              opacity: 1;
+              transform: translate3d(0, 0, 0);
+            }
+          }
+          .fade-out {
+            position: relative;
+            &:after {
+              content: "";
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              height: 50px;
+              background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+            }
+          }
+          .paywall-active .story-content {
+            filter: brightness(0.5);
+          }
         `}</style>
-        <section className="relative max-w-screen-xl mx-auto py-28 gap-12 md:px-12 flex flex-col justify-center items-center">
+        <section
+          className={`relative max-w-screen-xl mx-auto py-12 gap-12 md:px-12 flex flex-col justify-center items-center ${
+            showFullStory && !paymentSuccess ? "paywall-active" : ""
+          }`}
+        >
           <div className="card">
             <div className="card-background"></div>
-            <div className="mt-4">
+            <div className="mt-4 story-content">
               {loading ? (
                 <div className="loader-container">
                   <div className="loader"></div>
@@ -382,15 +417,17 @@ const ShowStory = () => {
                     formatStory(story)
                   ) : (
                     <>
-                      {formatStory(
-                        story.slice(0, Math.floor(story.length * 0.4)) + "..."
-                      )}
+                      <div className="teasing-text fade-out">
+                        {formatStory(
+                          story.slice(0, Math.floor(story.length * 0.4)) + "..."
+                        )}
+                      </div>
                       <div className="text-center mt-4">
                         <Button
                           onClick={() => setShowFullStory(true)}
                           size="lg"
                           radius="full"
-                          className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
+                          className="bg-gradient-to-tr from-pink-500 to-indigo-500 text-white shadow-lg"
                           ref={buttonRef}
                         >
                           Show full story
@@ -402,16 +439,6 @@ const ShowStory = () => {
               )}
             </div>
           </div>
-          {!loading && (
-            <Button
-              onClick={handleCreateNewStory}
-              size="lg"
-              radius="full"
-              className="bg-gradient-to-tr from-blue-500 to-green-500 text-white shadow-lg mt-4"
-            >
-              Create new story
-            </Button>
-          )}
           {paymentSuccess && (
             <Button
               onClick={handleDownloadPDF}
@@ -421,6 +448,23 @@ const ShowStory = () => {
             >
               📁 Download as PDF
             </Button>
+          )}
+          {!loading && (
+            <>
+              <div className="flex flex-col mt-16">
+                <p className="text-center mt-4 text-lg leading-7 text-gray-200">
+                  Would you like to create another magical story?
+                </p>
+                <Button
+                  onClick={handleCreateNewStory}
+                  size="lg"
+                  radius="full"
+                  className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white shadow-lg mt-4"
+                >
+                  Create new story
+                </Button>
+              </div>
+            </>
           )}
           {showFullStory &&
             !paymentSuccess &&
