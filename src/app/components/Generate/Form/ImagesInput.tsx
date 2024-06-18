@@ -22,16 +22,23 @@ export function ImagesInput({ images, value, onChange }: ImagesInputProps) {
           key={index}
           className={`relative border-4 ${
             value.includes(image) ? "border-sky-500" : "border-white"
-          } cursor-pointer flex justify-center items-end overflow-hidden px-10`}
+          } cursor-pointer flex justify-center items-center overflow-hidden`}
           style={{
-            backgroundImage: `url(${image})`,
-            backgroundSize: "contain",
-            backgroundPosition: "center bottom",
-            backgroundRepeat: "no-repeat",
+            padding: "10px", // Adding padding inside the card
             height: "195px",
           }}
           onClick={() => handleInputChange(image)}
         >
+          <div
+            style={{
+              backgroundImage: `url(${image})`,
+              backgroundSize: "contain",
+              backgroundPosition: "center bottom",
+              backgroundRepeat: "no-repeat",
+              height: "100%",
+              width: "100%",
+            }}
+          />
           <div className="absolute top-2 right-2">
             <input
               type="checkbox"
