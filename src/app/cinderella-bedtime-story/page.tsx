@@ -33,15 +33,55 @@ const StaticCinderellaStory = () => {
   return (
     <Fragment>
       <Head>
-        <title>{storyTitle}</title>
+        <title>{storyTitle} - Cinderella Bedtime Story</title>
+        <meta
+          name="description"
+          content="Read the classic Cinderella bedtime story. Enjoy this enchanting tale with your kids and teach them the values of kindness and hope."
+        />
+        <meta
+          name="keywords"
+          content="Cinderella bedtime story, Cinderella, bedtime stories for kids, classic bedtime stories, children's stories"
+        />
+        <meta
+          property="og:title"
+          content="Cinderella's Magical Night - Bedtime Story"
+        />
+        <meta
+          property="og:description"
+          content="Read the classic Cinderella bedtime story. Enjoy this enchanting tale with your kids and teach them the values of kindness and hope."
+        />
+        <meta
+          property="og:image"
+          content="/images/characters/cinderella.webp"
+        />
+        <meta
+          property="og:url"
+          content="https://www.CreateBedtimeStory.com/cinderella-bedtime-story"
+        />
+        <meta
+          name="twitter:title"
+          content="Cinderella's Magical Night - Bedtime Story"
+        />
+        <meta
+          name="twitter:description"
+          content="Read the classic Cinderella bedtime story. Enjoy this enchanting tale with your kids and teach them the values of kindness and hope."
+        />
+        <meta
+          name="twitter:image"
+          content="/images/characters/cinderella.webp"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Form.Card>
         <div className="flex flex-col items-center">
-          <Form.Header title={storyTitle} description="" />
+          <Form.Header
+            title={storyTitle}
+            description="A delightful bedtime story about Cinderella and her magical adventure."
+          />
           <img
             src="/images/characters/cinderella.webp"
             alt="Cinderella"
-            className="my-4 w-3/4 md:w-1/2 lg:w-1/12 rounded"
+            className="my-4 w-3/4 md:w-1/2 lg:w-1/3 rounded"
           />
           <div className="text-lg leading-7 px-4 mt-8 space-y-4">
             {fullContent.split("\n\n").map((paragraph, index) => (

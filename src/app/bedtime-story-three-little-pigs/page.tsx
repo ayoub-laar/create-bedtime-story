@@ -35,15 +35,55 @@ const StaticThreeLittlePigsStory = () => {
   return (
     <Fragment>
       <Head>
-        <title>{storyTitle}</title>
+        <title>{storyTitle} - Three Little Pigs Bedtime Story</title>
+        <meta
+          name="description"
+          content="Read the classic bedtime story of The Three Little Pigs' Adventure. Enjoy this enchanting tale with your kids and teach them the values of hard work and perseverance."
+        />
+        <meta
+          name="keywords"
+          content="three little pigs bedtime story, three little pigs, bedtime stories for kids, classic bedtime stories, children's stories"
+        />
+        <meta
+          property="og:title"
+          content="The Three Little Pigs' Adventure - Bedtime Story"
+        />
+        <meta
+          property="og:description"
+          content="Read the classic bedtime story of The Three Little Pigs' Adventure. Enjoy this enchanting tale with your kids and teach them the values of hard work and perseverance."
+        />
+        <meta
+          property="og:image"
+          content="/images/characters/three-little-pigs.webp"
+        />
+        <meta
+          property="og:url"
+          content="https://www.CreateBedtimeStory.com/bedtime-story-three-little-pigs"
+        />
+        <meta
+          name="twitter:title"
+          content="The Three Little Pigs' Adventure - Bedtime Story"
+        />
+        <meta
+          name="twitter:description"
+          content="Read the classic bedtime story of The Three Little Pigs' Adventure. Enjoy this enchanting tale with your kids and teach them the values of hard work and perseverance."
+        />
+        <meta
+          name="twitter:image"
+          content="/images/characters/three-little-pigs.webp"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Form.Card>
         <div className="flex flex-col items-center">
-          <Form.Header title={storyTitle} description="" />
+          <Form.Header
+            title={storyTitle}
+            description="A delightful bedtime story about The Three Little Pigs and their adventure."
+          />
           <img
-            src="/images/characters/three little pigs.webp"
-            alt="Three Little Pigs"
-            className="my-4 w-3/4 md:w-1/2 lg:w-1/12 rounded"
+            src="/images/characters/three-little-pigs.webp"
+            alt="The Three Little Pigs"
+            className="my-4 w-3/4 md:w-1/2 lg:w-1/3 rounded"
           />
           <div className="text-lg leading-7 px-4 mt-8 space-y-4">
             {fullContent.split("\n\n").map((paragraph, index) => (
