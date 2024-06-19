@@ -10,7 +10,7 @@ export function YourCharacters() {
     dispatchCharactersField
   } = useForm()
 
-  const images = ['/images/characters/Mario\\\ Bros.webp', '/images/characters/Pikachu.webp', '/images/characters/Elsa.webp', '/images/characters/Raiponce.webp', '/images/characters/Spider-man.webp', '/images/characters/Super-man.webp', '/images/characters/Homer\\\ Simpson.webp', '/images/characters/Naruto.webp', '/images/characters/Shrek.webp', '/images/characters/Barbie.webp', '/images/characters/Mickey\\\ Mouse.webp', '/images/characters/The\\\ Lion\\\ King.webp']
+  const images = ['/images/characters/Mario\\\ Bros.webp', '/images/characters/Pikachu.webp', '/images/characters/Elsa.webp', '/images/characters/Raiponce.webp', '/images/characters/Spider-man.webp', '/images/characters/Super-man.webp', '/images/characters/Homer\\\ Simpson.webp', '/images/characters/Naruto.webp', '/images/characters/Shrek.webp', '/images/characters/Barbie.webp', '/images/characters/Mickey\\\ Mouse.webp', '/images/characters/The\\\ Lion\\\ King.webp', '/images/characters/cinderella.webp', '/images/characters/three\\\ little\\\ pigs.webp']
 
   return (
     <Fragment>
