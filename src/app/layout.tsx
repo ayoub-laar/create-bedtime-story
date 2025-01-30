@@ -3,6 +3,7 @@ import { Ubuntu } from "next/font/google";
 import NavBar from "./components/Home/NavBar";
 import Footer from "./components/Home/Footer";
 import Providers from "./providers";
+import Script from "next/script";
 
 const ubuntu = Ubuntu({
   weight: ["300", "400", "500", "700"],
@@ -42,28 +43,34 @@ export default function RootLayout({
     <html suppressHydrationWarning={true} lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <script
-          defer
-          data-domain="createbedtimestory.com"
-          src="https://plausible.io/js/script.js"
-        ></script>
-        {/* Google tag (gtag.js) */}
-        <script
+      </head>
+      <body className={ubuntu.className}>
+        {/* Google Ads Tracking Script */}
+        <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=AW-16840802251"
-        ></script>
-        <script
+        />
+        <Script
+          id="google-ads"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
+
               gtag('config', 'AW-16840802251');
             `,
           }}
         />
-      </head>
-      <body className={ubuntu.className}>
+
+        {/* Plausible Analytics */}
+        <Script
+          defer
+          data-domain="createbedtimestory.com"
+          src="https://plausible.io/js/script.js"
+        />
+
         <Providers>
           <div className="flex flex-col min-h-screen">
             <NavBar />
