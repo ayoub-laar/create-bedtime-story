@@ -20,3 +20,64 @@ body {
   color: rgb(var(--foreground));
   background-color: rgb(var(--background));
 }
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.loader-container {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(45deg, #ff69b4, #4f46e5, #ff69b4);
+  background-size: 200% 200%;
+  animation: gradient 5s ease infinite;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .5; }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+.transition-opacity {
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Ajout d'un effet de scintillement pour les étoiles */
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.9); }
+}
+
+.text-yellow-400 {
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+/* Amélioration du contraste pour le texte */
+.text-gray-900 {
+  color: #111827;
+}
+
+.text-gray-600 {
+  color: #4B5563;
+}

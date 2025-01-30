@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useState, useRef } from "react";
-import Form from "../../Form";
 import {
   EmbeddedCheckoutProvider,
   EmbeddedCheckout,
@@ -36,6 +35,15 @@ const ShowStory = () => {
   const storyFetchedRef = useRef(false);
   const buttonRef = useRef(null);
   const paywallRef = useRef(null);
+  const [loadingMessage, setLoadingMessage] = useState("Preparing your magical story...");
+
+  const loadingMessages = [
+    "✨ Once upon a time...",
+    "🌟 Our AI storytellers are crafting your unique tale...",
+    "🎨 Adding vibrant characters and magical moments...",
+    "📝 Writing the perfect bedtime adventure...",
+    "🌙 Making dreams come true...",
+  ];
 
   useEffect(() => {
     const fetchStory = async () => {
@@ -158,6 +166,18 @@ const ShowStory = () => {
     init();
   }, [sessionId]);
 
+  useEffect(() => {
+    if (loading) {
+      let messageIndex = 0;
+      const interval = setInterval(() => {
+        setLoadingMessage(loadingMessages[messageIndex]);
+        messageIndex = (messageIndex + 1) % loadingMessages.length;
+      }, 3000); // Change message every 3 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [loading]);
+
   const handlePaymentSuccess = () => {
     setPaymentSuccess(true);
     const savedStory = getValueFromLocalStorage("currentStory");
@@ -240,254 +260,102 @@ const ShowStory = () => {
   };
 
   return (
-    <Fragment>
-      <Form.Card>
-        <Form.Header title="Your bedtime story 🪄" description="" />
-        {paymentSuccess && (
-          <p className="mt-4 text-center text-green-500 animate-pulse">
-            This is the full story. Thank you for your purchase!
-          </p>
-        )}
-        <style jsx>{`
-          .card {
-            position: relative;
-            max-width: 1000px; /* Augmenter la largeur maximale de la carte */
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Fond plus sombre avec une légère transparence */
-            color: white; /* Texte en blanc pour le mode sombre */
-            border-radius: 8px;
-            overflow: hidden; /* Assure que l'effet flouté ne dépasse pas les bords arrondis */
-          }
-          .card-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* Positionne l'arrière-plan derrière le contenu */
-            background-image: url("/images/example.jpg"); /* Votre image de fond */
-            background-size: cover;
-            background-position: center;
-            filter: blur(8px); /* Ajustez le niveau de flou ici */
-            opacity: 0.5; /* Réduit l'opacité pour un effet plus subtil en mode sombre */
-          }
-          .overlay {
-            position: absolute;
-            top: 0,
-            left: 0,
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            color: white;
-            text-align: center;
-          }
-          .loader-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            text-align: center;
-          }
-          .loader {
-            position: relative;
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: conic-gradient(
-              from 0deg at 50% 50%,
-              #ff0075,
-              #f0f,
-              #0ff,
-              #f0f,
-              #ff0075
-            );
-            animation: spin 2s linear infinite, glow 1.5s ease-in-out infinite;
-          }
-          .loader::before,
-          .loader::after {
-            content: "";
-            position: absolute;
-            inset: 6px;
-            border-radius: 50%;
-            background: rgba(0, 0, 0, 0.9);
-          }
-          .loader::after {
-            inset: 12px;
-            background: rgba(255, 255, 255, 0.1);
-          }
-          .loader::before {
-            animation: pulse 2s ease-in-out infinite;
-          }
-          @keyframes spin {
-            0% {
-              transform: rotate(0deg);
-            }
-            100% {
-              transform: rotate(360deg);
-            }
-          }
-          @keyframes glow {
-            0%,
-            100% {
-              box-shadow: 0 0 8px 4px rgba(255, 0, 117, 0.5),
-                0 0 12px 6px rgba(240, 0, 255, 0.4),
-                0 0 16px 8px rgba(0, 255, 255, 0.3);
-            }
-            50% {
-              box-shadow: 0 0 12px 6px rgba(255, 0, 117, 0.7),
-                0 0 16px 8px rgba(240, 0, 255, 0.6),
-                0 0 20px 10px rgba(0, 255, 255, 0.5);
-            }
-          }
-          @keyframes pulse {
-            0%,
-            100% {
-              transform: scale(1);
-            }
-            50% {
-              transform: scale(1.05);
-            }
-          }
-          .blur-overlay {
-            position: absolute;
-            top: 0,
-            left: 0,
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 10;
-          }
-          .teasing-text {
-            animation: fadeInUp 1s ease-out;
-          }
-          @keyframes fadeInUp {
-            from {
-              opacity: 0;
-              transform: translate3d(0, 20%, 0);
-            }
-            to {
-              opacity: 1;
-              transform: translate3d(0, 0, 0);
-            }
-          }
-          .fade-out {
-            position: relative;
-            &:after {
-              content: "";
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              width: 100%;
-              height: 50px;
-              background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
-            }
-          }
-          .paywall-active .story-content {
-            filter: brightness(0.5);
-          }
-        `}</style>
-        <section
-          className={`relative max-w-screen-xl mx-auto py-12 gap-12 md:px-12 flex flex-col justify-center items-center ${
-            showFullStory && !paymentSuccess ? "paywall-active" : ""
-          }`}
+    <div className="bg-black">
+      {/* Bouton Back toujours visible */}
+      <div className="p-4">
+        <Button
+          onClick={() => router.push("/")}
+          className="bg-gray-800/50 hover:bg-gray-700/50 text-white"
+          size="lg"
         >
-          <div className="card">
-            <div className="card-background"></div>
-            <div className="mt-4 story-content">
-              {loading ? (
-                <div className="loader-container">
-                  <div className="loader"></div>
-                  <p className="mt-4">
-                    Generating your magical bedtime story...
-                  </p>
-                </div>
-              ) : (
-                <>
-                  {title && (
-                    <h2 className="text-2xl font-bold text-center mt-4">
-                      {title}
-                    </h2>
-                  )}
-                  {paymentSuccess ? (
-                    formatStory(story)
-                  ) : (
-                    <>
-                      <div className="teasing-text fade-out">
-                        {formatStory(
-                          story.slice(0, Math.floor(story.length * 0.4)) + "..."
-                        )}
-                      </div>
-                      <div className="text-center mt-4">
-                        <Button
-                          onClick={() => setShowFullStory(true)}
-                          size="lg"
-                          radius="full"
-                          className="bg-gradient-to-tr from-pink-500 to-indigo-500 text-white shadow-lg"
-                          ref={buttonRef}
-                        >
-                          Show full story
-                        </Button>
-                      </div>
-                    </>
-                  )}
-                </>
-              )}
+          ← Back
+        </Button>
+      </div>
+
+      {loading ? (
+        // Écran de chargement - plus compact
+        <div className="flex flex-col items-center justify-center py-12">
+          {/* Animation des étoiles */}
+          <div className="relative h-16 w-16 mb-6">
+            <div className="absolute inset-0 animate-spin-slow">
+              <span className="absolute text-3xl">✨</span>
+              <span className="absolute text-3xl" style={{ left: '75%', top: '25%' }}>✨</span>
+              <span className="absolute text-3xl" style={{ left: '25%', top: '75%' }}>✨</span>
             </div>
           </div>
-          {paymentSuccess && (
-            <Button
-              onClick={handleDownloadPDF}
-              size="lg"
-              radius="full"
-              className="bg-gradient-to-tr from-purple-500 to-indigo-500 text-white shadow-lg mt-4"
-            >
-              📁 Download as PDF
-            </Button>
+          
+          {/* Message de chargement */}
+          <h2 className="text-2xl font-bold text-white mb-2">{loadingMessage}</h2>
+          <p className="text-gray-400 text-sm">This usually takes about 30 seconds...</p>
+        </div>
+      ) : (
+        // Histoire générée
+        <div className="container mx-auto px-4 pb-8 text-white">
+          {title && (
+            <h1 className="text-3xl font-bold text-center mb-8">{title}</h1>
           )}
-          {!loading && (
-            <div className="flex flex-col mt-16" style={{ zIndex: 30 }}>
-              <p className="text-center mt-4 text-lg leading-7 text-gray-200">
-                Would you like to create another magical story?
-              </p>
-              <Button
-                onClick={handleCreateNewStory}
-                size="lg"
-                radius="full"
-                className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white shadow-lg mt-4"
-              >
-                Create new story
-              </Button>
-            </div>
-          )}
-          {showFullStory &&
-            !paymentSuccess &&
-            clientSecret &&
-            stripePromise && (
+          
+          <div className="prose prose-lg prose-invert mx-auto">
+            {paymentSuccess ? (
+              formatStory(story)
+            ) : (
               <>
-                <div className="blur-overlay"></div>
-                <div
-                  id="checkout"
-                  className="absolute inset-0 flex flex-col items-center justify-center"
-                  style={{ zIndex: 20 }}
-                  ref={paywallRef}
-                >
-                  <EmbeddedCheckoutProvider
-                    stripe={stripePromise}
-                    options={{ clientSecret }}
+                {formatStory(story.slice(0, Math.floor(story.length * 0.4)) + "...")}
+                <div className="text-center mt-12">
+                  <Button
+                    onClick={() => setShowFullStory(true)}
+                    size="lg"
+                    className="bg-gradient-to-r from-purple-500 to-pink-500 text-white"
                   >
-                    <EmbeddedCheckout />
-                  </EmbeddedCheckoutProvider>
+                    Continue Reading
+                  </Button>
                 </div>
               </>
             )}
-        </section>
-      </Form.Card>
-    </Fragment>
+          </div>
+
+          <div className="flex justify-center gap-4 mt-12">
+            <Button
+              onClick={handleCreateNewStory}
+              size="lg"
+              className="bg-gray-800 text-white"
+            >
+              Create New Story
+            </Button>
+            {paymentSuccess && (
+              <Button
+                onClick={handleDownloadPDF}
+                size="lg"
+                className="bg-green-600 text-white"
+              >
+                Download PDF
+              </Button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Modal Stripe */}
+      {showFullStory && !paymentSuccess && clientSecret && stripePromise && (
+        <div className="fixed inset-0 bg-black/95 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className="w-full max-w-md bg-white rounded-lg relative">
+            <Button
+              onClick={() => setShowFullStory(false)}
+              className="absolute -top-4 -right-4 z-50 min-w-0 w-8 h-8 bg-gray-800 text-white rounded-full"
+              size="sm"
+            >
+              ✕
+            </Button>
+            <EmbeddedCheckoutProvider
+              stripe={stripePromise}
+              options={{ clientSecret }}
+            >
+              <EmbeddedCheckout />
+            </EmbeddedCheckoutProvider>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
