@@ -450,21 +450,19 @@ const ShowStory = () => {
             </Button>
           )}
           {!loading && (
-            <>
-              <div className="flex flex-col mt-16">
-                <p className="text-center mt-4 text-lg leading-7 text-gray-200">
-                  Would you like to create another magical story?
-                </p>
-                <Button
-                  onClick={handleCreateNewStory}
-                  size="lg"
-                  radius="full"
-                  className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white shadow-lg mt-4"
-                >
-                  Create new story
-                </Button>
-              </div>
-            </>
+            <div className="flex flex-col mt-16" style={{ zIndex: 30 }}>
+              <p className="text-center mt-4 text-lg leading-7 text-gray-200">
+                Would you like to create another magical story?
+              </p>
+              <Button
+                onClick={handleCreateNewStory}
+                size="lg"
+                radius="full"
+                className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white shadow-lg mt-4"
+              >
+                Create new story
+              </Button>
+            </div>
           )}
           {showFullStory &&
             !paymentSuccess &&
